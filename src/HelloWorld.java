@@ -4,7 +4,7 @@ import javax.swing.JLabel;
 
 public class HelloWorld {
     private static void createAndShowWindow() {
-        JFrame.setDefaultLookAndFeelDecorated(true);
+        // JFrame.setDefaultLookAndFeelDecorated(true);
         JFrame frame = new JFrame("Test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JLabel label = new JLabel("Hello World!");
