@@ -17,13 +17,6 @@
             "request": "launch",
             "mainClass": "App",
             "projectName": "CSProject2024_b5f6690f"
-        },
-        {
-            "type": "java",
-            "name": "HelloWorld",
-            "request": "launch",
-            "mainClass": "HelloWorld",
-            "projectName": "CSProject2024_b5f6690f"
         }
     ]
 }
