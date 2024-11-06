@@ -6,10 +6,16 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.csproject.Main",
+            "projectName": "csproject"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
-            // "console": "externalTerminal"
         },
         {
             "type": "java",

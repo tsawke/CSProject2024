@@ -1,4 +1,4 @@
-package com.cs;
+package com.csproject;
 
 public class Main {
     public static void main(String[] args) {
