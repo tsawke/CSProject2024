@@ -3,9 +3,18 @@
 ## Introduction
 
 ## TODO List
-- TASKS
+- Main menu
+- Database to store UID, password, score, etc
+- Choose map
+- AI recommended route(optional)
+- Showcase map
+- Player move and count steps, etc
+- Ranklist
+- UI
+- ...
 
 ## Logs
+- 20241107 - tsawke - Rebuild project by maven.
 - 20241105 - tsawke - Create elementary index page.
 - 20241105 - tsawke - Initialize the Project.
 

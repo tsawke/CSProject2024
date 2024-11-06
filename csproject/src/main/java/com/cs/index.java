@@ -1,26 +1,33 @@
+package com.cs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
-import org.jb2011.*;
+import com.formdev.flatlaf.FlatLightLaf;
+// import javax.swing.UIManager;
+
+// import org.jb2011.*;
+
+// import com.formdev.flatlaf.*;
 
 
 public class index{
     public static void createAndShowWindow() {
-        try
-    {
-        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-    }
-    catch(Exception e)
-    {
-        //TODO exception
-    }
+    FlatLightLaf.setup();
+    //     try
+    // {
+    //     org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+    // }
+    // catch(Exception e)
+    // {
+    //     //TODO exception
+    // }
 
         JFrame frame = new JFrame("Sokoban Game");
         frame.setSize(1920, 1080);
