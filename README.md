@@ -22,3 +22,5 @@
 ## Utilities
 - VSCode配置Java编译环境教程（使用jdk23） https://blog.csdn.net/m0_59836361/article/details/134264369
 - Java Swing 教程 https://www.xinbaoku.com/archive/04cEFxC6.html
+- 配置Maven教程（使用maven3.9.9） https://blog.csdn.net/u012660464/article/details/114113349
+- SQL字段类型汇总 https://blog.csdn.net/weixin_45654582/article/details/119157403
