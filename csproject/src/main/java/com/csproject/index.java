@@ -55,6 +55,7 @@ public class index{
 
         newGame.getRight().addActionListener((e)->{
             System.out.println("Press Button.");
+            chooseMap.createAndShowWindow();
         });
 
         loadArchive.getRight().addActionListener((e)->{
