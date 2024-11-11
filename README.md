@@ -15,6 +15,7 @@
 - ...
 
 ## Logs
+- 20241112 - tsawke - Build user, database, and configuration.
 - 20241107 - tsawke - Create main menu.
 - 20241107 - tsawke - Rebuild project by maven.
 - 20241105 - tsawke - Create elementary index page.
