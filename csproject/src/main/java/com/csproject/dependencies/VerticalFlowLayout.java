@@ -1,4 +1,4 @@
-package com.csproject;
+package com.csproject.dependencies;
 
 //By https://blog.csdn.net/mrathena/article/details/125093751
 
