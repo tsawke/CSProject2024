@@ -5,6 +5,7 @@
 ## TODO List
 - Main menu(tsawke)
 - Database to store UID, password, score, etc(tsawke)
+- User configuration(tsawke)
 - Choose map
 - AI recommended route(optional)
 - Showcase map

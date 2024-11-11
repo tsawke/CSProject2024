@@ -17,7 +17,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.formdev.flatlaf.FlatLightLaf;
 
 
-public class index{
+public class Index{
     public static Pair < JPanel, JButton > createDefaultMenuButtonAndPanel(String Name) {
         JButton button = new JButton(Name);
         button.setFont(new Font("Arial", Font.PLAIN, 40));
