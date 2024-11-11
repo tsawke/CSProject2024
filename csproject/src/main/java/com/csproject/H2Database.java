@@ -35,7 +35,7 @@ public class H2Database {
         List < User > ret = new ArrayList<>();
         while(res.next())
             ret.add(new User(res.getInt("UID"), res.getString("Name"), res.getString("Password_sha256"), res.getShort("Sex")));
-        for(User i : ret)i.Describe();
+        // for(User i : ret)i.Describe();
         return ret;
     }
 }

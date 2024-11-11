@@ -14,7 +14,7 @@ public class User {
     public static void InitUsers() throws Exception{
         List < User > users = H2Database.GetUsers();
         playerCnt = users.size();
-        System.out.printf("Current size = %d\n", users.size());
+        // System.out.printf("Current size = %d\n", users.size());
         Main.setUsers(users);
     }
 
