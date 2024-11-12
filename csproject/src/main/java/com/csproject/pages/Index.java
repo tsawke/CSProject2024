@@ -18,9 +18,8 @@ import com.csproject.pages.ChooseMap;
 import com.csproject.dependencies.VerticalFlowLayout;
 import com.formdev.flatlaf.FlatLightLaf;
 
-
-public class Index{
-    public static Pair < JPanel, JButton > createDefaultMenuButtonAndPanel(String Name) {
+public class Index {
+    public static Pair<JPanel, JButton> createDefaultMenuButtonAndPanel(String Name) {
         JButton button = new JButton(Name);
         button.setFont(new Font("Arial", Font.PLAIN, 40));
         button.setPreferredSize(new Dimension(500, 50));
@@ -29,6 +28,7 @@ public class Index{
         buttonPanel.setBackground(Color.DARK_GRAY);
         return Pair.of(buttonPanel, button);
     }
+
     public static void CreateAndShowWindow() {
         FlatLightLaf.setup();
 
@@ -49,30 +49,30 @@ public class Index{
         Container content = frame.getContentPane();
         content.add(panel, BorderLayout.NORTH);
 
-        Pair < JPanel, JButton > newGame = createDefaultMenuButtonAndPanel("New Game");
-        Pair < JPanel, JButton > loadArchive = createDefaultMenuButtonAndPanel("Load Archive");
-        Pair < JPanel, JButton > rankList = createDefaultMenuButtonAndPanel("Ranklist");
-        Pair < JPanel, JButton > setting = createDefaultMenuButtonAndPanel("Setting");
-        Pair < JPanel, JButton > exit = createDefaultMenuButtonAndPanel("Exit");
+        Pair<JPanel, JButton> newGame = createDefaultMenuButtonAndPanel("New Game");
+        Pair<JPanel, JButton> loadArchive = createDefaultMenuButtonAndPanel("Load Archive");
+        Pair<JPanel, JButton> rankList = createDefaultMenuButtonAndPanel("Ranklist");
+        Pair<JPanel, JButton> setting = createDefaultMenuButtonAndPanel("Setting");
+        Pair<JPanel, JButton> exit = createDefaultMenuButtonAndPanel("Exit");
 
-        newGame.getRight().addActionListener((e)->{
+        newGame.getRight().addActionListener((e) -> {
             System.out.println("Press Button.");
-            chooseMap.createAndShowWindow();
+            ChooseMap.createAndShowWindow();
         });
 
-        loadArchive.getRight().addActionListener((e)->{
-            System.out.println("Press Button.");
-        });
-
-        rankList.getRight().addActionListener((e)->{
+        loadArchive.getRight().addActionListener((e) -> {
             System.out.println("Press Button.");
         });
 
-        setting.getRight().addActionListener((e)->{
+        rankList.getRight().addActionListener((e) -> {
             System.out.println("Press Button.");
         });
 
-        exit.getRight().addActionListener((e)->{
+        setting.getRight().addActionListener((e) -> {
+            System.out.println("Press Button.");
+        });
+
+        exit.getRight().addActionListener((e) -> {
             System.exit(0);
         });
 
@@ -88,7 +88,6 @@ public class Index{
         buttons.add(exit.getLeft());
 
         content.add(buttons, BorderLayout.CENTER);
-
 
         frame.setVisible(true);
     }
