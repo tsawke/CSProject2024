@@ -3,7 +3,7 @@ package com.csproject;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.csproject.pages.Index;
+import com.csproject.pages.*;;
 
 public class Main {
     private static List<User> users = new ArrayList<>();
@@ -16,9 +16,9 @@ public class Main {
 
         // for(User i : users)System.out.println(i);
         // Settings.GetProperties();
-        // chooseMap.createAndShowWindow();
+        ChooseMap.CreateAndShowWindow();
         System.out.println("Hello world!");
-        Index.CreateAndShowWindow();
+        // Index.CreateAndShowWindow();
         System.out.println("Complete!");
     }
 

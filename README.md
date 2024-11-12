@@ -6,7 +6,7 @@
 - Main menu(tsawke)
 - Database to store UID, password, score, etc(tsawke)
 - User configuration(tsawke)
-- Choose map
+- Choose map(Victoria)
 - AI recommended route(optional)
 - Showcase map
 - Player move and count steps, etc
