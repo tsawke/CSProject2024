@@ -1,6 +1,6 @@
-package com.csproject;
+package com.csproject.pages;
 
-public class chooseMap {
+public class ChooseMap {
     
     //TODO
 

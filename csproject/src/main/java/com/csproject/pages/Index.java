@@ -1,4 +1,4 @@
-package com.csproject;
+package com.csproject.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.csproject.pages.ChooseMap;
 import com.csproject.dependencies.VerticalFlowLayout;
 import com.formdev.flatlaf.FlatLightLaf;
 
@@ -28,7 +29,7 @@ public class Index{
         buttonPanel.setBackground(Color.DARK_GRAY);
         return Pair.of(buttonPanel, button);
     }
-    public static void createAndShowWindow() {
+    public static void CreateAndShowWindow() {
         FlatLightLaf.setup();
 
         JFrame frame = new JFrame("Sokoban Game");

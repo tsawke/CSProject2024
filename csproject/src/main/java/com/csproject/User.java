@@ -54,7 +54,7 @@ public class User {
     }
 
     public void Describe() {
-        System.out.printf("User ID = %d, Name = %s, PWD = %s, Sex = %d\n", this.UID, this.Name, this.Password_sha256, this.Sex);
+        System.err.printf("User ID = %d, Name = %s, PWD = %s, Sex = %d\n", this.UID, this.Name, this.Password_sha256, this.Sex);
     }
 
     public User(int UID, String Name, String Password_sha256, short Sex) throws Exception{
