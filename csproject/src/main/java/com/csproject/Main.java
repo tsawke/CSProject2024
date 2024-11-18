@@ -9,16 +9,15 @@ public class Main {
     private static List<User> users = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
-        // H2Database.CreateDefaultTables();
-        // User.InitUsers();
-        // H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(),
-        // "Test", "pwd", (short)1));
+        H2Database.CreateDefaultTables();
+        User.InitUsers();
+        H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(),
+        "Test", "pwd", (short)1));
 
-        // for(User i : users)System.out.println(i);
-        // Settings.GetProperties();
-        ChooseMap.CreateAndShowWindow();
+        for(User i : users)System.out.println(i);
+        Settings.GetProperties();
         System.out.println("Hello world!");
-        // Index.CreateAndShowWindow();
+        Index.CreateAndShowWindow();
         System.out.println("Complete!");
     }
 
