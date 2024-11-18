@@ -1,16 +1,14 @@
 package com.csproject.pages;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -27,9 +25,16 @@ public class ChooseMap extends Index {
 
     public static void CreateAndShowWindow() {
 
-        JFrame frame = new JFrame("Choose Map!");
+        JFrame frame = new JFrame("Choose Map!"); // 创建Choose Map窗口
+        frame.setSize(1920, 1080);
+
+        // 创建BorderLayout窗口管理器，用于存放标题
+        frame.setLayout(new BorderLayout());
+
         JPanel panel = new JPanel();
-        panel.setBackground(Color.gray);
+        panel.setBackground(Color.white);
+
+        // 设置标题
         JLabel title = new JLabel("Choose Map!");
         title.setFont(new Font("Arial", Font.PLAIN, 80));
 
@@ -37,22 +42,66 @@ public class ChooseMap extends Index {
 
         Container content = frame.getContentPane();
         content.add(panel, BorderLayout.NORTH);
-        frame.setLayout(new BorderLayout());
-        frame.setSize(1920, 1080);
+
+        // 获取地图图片
+        ImageIcon MapPicture1 = new ImageIcon("D:\\CSProject2024\\resources\\TempMap.png");
+        ImageIcon MapPicture2 = new ImageIcon("D:\\CSProject2024\\resources\\TempMap.png");
+        ImageIcon MapPicture3 = new ImageIcon("D:\\CSProject2024\\resources\\TempMap.png");
+        ImageIcon MapPicture4 = new ImageIcon("D:\\CSProject2024\\resources\\TempMap.png");
+        ImageIcon MapPicture5 = new ImageIcon("D:\\CSProject2024\\resources\\TempMap.png");
+
+        // 创建选地图按钮
+
         Pair<JPanel, JButton> Map1 = createDefaultMenuButtonAndPanel("Map1");
         Pair<JPanel, JButton> Map2 = createDefaultMenuButtonAndPanel("Map2");
         Pair<JPanel, JButton> Map3 = createDefaultMenuButtonAndPanel("Map3");
+        Pair<JPanel, JButton> Map4 = createDefaultMenuButtonAndPanel("Map4");
+        Pair<JPanel, JButton> Map5 = createDefaultMenuButtonAndPanel("Map5");
+        Pair<JPanel, JButton> Exit = createDefaultMenuButtonAndPanel("Exit");
 
-        VerticalFlowLayout verticalLayout = new VerticalFlowLayout(10, 25);
-        // verticalLayout.setFill(false);
-        JPanel buttons = new JPanel(verticalLayout);
+        JButton Map1Button = Map1.getRight();
+        JButton Map2Button = Map2.getRight();
+        JButton Map3Button = Map3.getRight();
+        JButton Map4Button = Map4.getRight();
+        JButton Map5Button = Map5.getRight();
+        Map1Button.setIcon(MapPicture1);
+        Map2Button.setIcon(MapPicture2);
+        Map3Button.setIcon(MapPicture3);
+        Map4Button.setIcon(MapPicture4);
+        Map5Button.setIcon(MapPicture5);
+        // 设置文本相对于图片的垂直位置为底部
+        Map1Button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        Map1Button.setText("Map1");
+        Map2Button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        Map2Button.setText("Map2");
+        Map3Button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        Map3Button.setText("Map3");
+        Map4Button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        Map4Button.setText("Map4");
+        Map5Button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        Map5Button.setText("Map5");
+
+        /*
+         * Dimension buttonSize = new Dimension(150, 150);
+         * Map1Button.setPreferredSize(buttonSize);
+         * Map2Button.setPreferredSize(buttonSize);
+         * Map3Button.setPreferredSize(buttonSize);
+         * Map4Button.setPreferredSize(buttonSize);
+         * Map5Button.setPreferredSize(buttonSize);
+         */
+
+        // 使用Grid Layout排布选地图按钮
+        // 创建一个JPanel作为子容器，使用GridLayout
+        JPanel buttons = new JPanel(new GridLayout(2, 3, 20, 20));
         buttons.setBackground(Color.DARK_GRAY);
-        buttons.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
-        buttons.add(Map1.getLeft());
-        buttons.add(Map2.getLeft());
-        buttons.add(Map3.getLeft());
+        buttons.add(Map1.getRight());
+        buttons.add(Map2.getRight());
+        buttons.add(Map3.getRight());
+        buttons.add(Map4.getRight());
+        buttons.add(Map5.getRight());
+        buttons.add(Exit.getRight());
+        frame.add(buttons, BorderLayout.CENTER);
 
-        content.add(buttons, BorderLayout.CENTER);
         Map1.getRight().addActionListener((e) -> {
             System.out.println("Press Button.");
 
@@ -65,8 +114,21 @@ public class ChooseMap extends Index {
             System.out.println("Press Button.");
 
         });
+        Map4.getRight().addActionListener((e) -> {
+            System.out.println("Press Button.");
+
+        });
+        Map5.getRight().addActionListener((e) -> {
+            System.out.println("Press Button.");
+
+        });
+        Exit.getRight().addActionListener((e) -> {
+            System.out.println("Press Button.");
+
+        });
 
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 }
