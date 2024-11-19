@@ -17,6 +17,7 @@
 - ...
 
 ## Logs
+- 20241119 - Victoria - LogIn page complete.
 - 20241118 - Victoria - ChooseMap 80% complete (TODO: picture, exit).
 - 20241112 - tsawke - Build user, database, and configuration.
 - 20241107 - tsawke - Create main menu.
