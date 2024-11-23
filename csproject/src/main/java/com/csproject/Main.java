@@ -3,7 +3,7 @@ package com.csproject;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.csproject.pages.*;;
+import com.csproject.pages.Index;
 
 public class Main {
     private static List<User> users = new ArrayList<>();
