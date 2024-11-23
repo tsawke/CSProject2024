@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LogIn",
+            "request": "launch",
+            "mainClass": "com.csproject.pages.LogIn",
+            "projectName": "csproject"
+        },
+        {
+            "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "com.csproject.Main",

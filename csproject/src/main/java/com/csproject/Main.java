@@ -8,16 +8,22 @@ import com.csproject.pages.Index;
 public class Main {
     private static List<User> users = new ArrayList<>();
 
+
+
     public static void main(String[] args) throws Exception {
         H2Database.CreateDefaultTables();
         User.InitUsers();
         H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(),
-        "Test", "pwd", (short)1));
+                "Test", "pwd", (short) 1));
+        
+        //先显示登陆界面，并实现了Vistor功能
+        LogIn.CreateAndShowWindow();
+    
 
         for(User i : users)System.out.println(i);
         Settings.GetProperties();
         System.out.println("Hello world!");
-        Index.CreateAndShowWindow();
+        //Index.CreateAndShowWindow();
         System.out.println("Complete!");
     }
 

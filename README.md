@@ -7,6 +7,8 @@
 - Database to store UID, password, score, etc(tsawke)
 - User configuration(tsawke)
 - Choose map(Victoria)
+- LogIn (Victoia)
+- Map (Victoria)
 - AI recommended route(optional)
 - Showcase map
 - Player move and count steps, etc
@@ -15,6 +17,8 @@
 - ...
 
 ## Logs
+- 20241119 - Victoria - LogIn page complete.
+- 20241118 - Victoria - ChooseMap 80% complete (TODO: picture, exit).
 - 20241112 - tsawke - Build user, database, and configuration.
 - 20241107 - tsawke - Create main menu.
 - 20241107 - tsawke - Rebuild project by maven.

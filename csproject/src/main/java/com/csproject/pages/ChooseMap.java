@@ -2,7 +2,7 @@ package com.csproject.pages;
 
 import java.awt.*;
 
-import javax.swing.BorderFactory;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,10 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import org.apache.commons.lang3.tuple.Pair;
-
-import com.csproject.pages.ChooseMap;
-import com.csproject.dependencies.VerticalFlowLayout;
-import com.formdev.flatlaf.FlatLightLaf;
 
 public class ChooseMap extends Index {
 
@@ -32,7 +28,7 @@ public class ChooseMap extends Index {
         frame.setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
-        panel.setBackground(Color.white);
+        panel.setBackground(Color.gray);
 
         // 设置标题
         JLabel title = new JLabel("Choose Map!");
