@@ -30,6 +30,11 @@ public class GameSystem {
             this.panel.setBackground(this.type.getColor());
             this.panel.updateUI();
         }
+        public void UpdateType(FieldType type){
+            this.type = type;
+            this.panel.setBackground(this.type.getColor());
+            this.panel.updateUI();
+        }
     }
 
     public GameSystem(int mapIndex) {
@@ -109,40 +114,161 @@ public class GameSystem {
 
                         }
                     }
-                    if(nextX != -1 && nextY != -1){
-                        switch(currentMap.GetMapByIndex(nextX, nextY)) {
-                            case 0 -> {
-                                field[curX][curY].UpdateType(0);
-                                field[nextX][nextY].UpdateType(4);
-                                player.setPosX(nextX);
-                                player.setCntStep(player.getCntStep() + 1);
-                            }
-                            case 1 -> {
-                                //Blocked
-                            }
-                            case 2 -> {
-                                
-                            }
-                            case 3 -> {
-                                field[curX][curY].UpdateType(0);
-                                field[nextX][nextY].UpdateType(5);
-                                player.setPosX(nextX);
-                                player.setCntStep(player.getCntStep() + 1);
-                            }
-                            case 4 -> {
-                                System.err.println("Failed in running! #Map multiple players.");
-                                System.exit(1);
-                            }
-                            case 5 -> {
-                                System.err.println("Failed in running! #Map multiple players.");
-                                System.exit(1);
-                            }
-                            case 6 -> {
+                    if(nextX < 1 || nextX > currentMap.getHeight() || nextY < 1 || nextY > currentMap.getWidth())return;
+                    switch(currentMap.GetMapByIndex(nextX, nextY)) {
+                        case 0 -> {
+                            field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
+                            field[nextX][nextY].UpdateType(FieldType.Player);
+                            player.setPosX(nextX);
+                            player.setPosY(nextY);
+                            player.setCntStep(player.getCntStep() + 1);
+                        }
+                        case 1 -> {
+                            //Blocked
+                        }
+                        case 2 -> {
+                            int boxNextX = -1;
+                            int boxNextY = -1;
+                            switch(c) {
+                                case 'w' -> {
+                                    boxNextX = nextX - 1;
+                                    boxNextY = nextY;
+                                }
+                                case 's' -> {
+                                    boxNextX = nextX + 1;
+                                    boxNextY = nextY;
+                                }
+                                case 'a' -> {
+                                    boxNextX = nextX;
+                                    boxNextY = nextY - 1;
+                                }
+                                case 'd' -> {
+                                    boxNextX = nextX;
+                                    boxNextY = nextY + 1;
+                                }
+                                default -> {
 
+                                }
+                            }
+                            if(boxNextX < 1 || boxNextX > currentMap.getHeight() || boxNextY < 1 || boxNextY > currentMap.getWidth())return;
+                            switch(currentMap.GetMapByIndex(boxNextX, boxNextX)) {
+                                case 0 -> {
+                                    field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
+                                    field[nextX][nextY].UpdateType(FieldType.Player);
+                                    field[boxNextX][boxNextY].UpdateType(FieldType.Box);
+                                    player.setPosX(nextX);
+                                    player.setPosY(nextY);
+                                    player.setCntStep(player.getCntStep() + 1);
+                                }
+                                case 1 -> {
+                                    //Blocked
+                                }
+                                case 2 -> {
+                                    //Blocked
+                                    //More than 1 box can't be pushed
+                                }
+                                case 3 -> {
+                                    field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
+                                    field[nextX][nextY].UpdateType(FieldType.Player);
+                                    field[boxNextX][boxNextY].UpdateType(FieldType.TargetWithBox);
+                                    player.setPosX(nextX);
+                                    player.setPosY(nextY);
+                                    player.setCntStep(player.getCntStep() + 1);
+                                }
+                                case 4 -> {
+                                    System.err.println("Failed in running! #Map multiple players.");
+                                    System.exit(1);
+                                }
+                                case 5 -> {
+                                    System.err.println("Failed in running! #Map multiple players.");
+                                    System.exit(1);
+                                }
+                                case 6 -> {
+                                    //Blocked
+                                    //More than 1 box can't be pushed
+                                }
+                            }
+                        }
+                        case 3 -> {
+                            field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
+                            field[nextX][nextY].UpdateType(FieldType.TargetWithPlayer);
+                            player.setPosX(nextX);
+                            player.setPosY(nextY);
+                            player.setCntStep(player.getCntStep() + 1);
+                        }
+                        case 4 -> {
+                            System.err.println("Failed in running! #Map multiple players.");
+                            System.exit(1);
+                        }
+                        case 5 -> {
+                            System.err.println("Failed in running! #Map multiple players.");
+                            System.exit(1);
+                        }
+                        case 6 -> {
+                            int boxNextX = -1;
+                            int boxNextY = -1;
+                            switch(c) {
+                                case 'w' -> {
+                                    boxNextX = nextX - 1;
+                                    boxNextY = nextY;
+                                }
+                                case 's' -> {
+                                    boxNextX = nextX + 1;
+                                    boxNextY = nextY;
+                                }
+                                case 'a' -> {
+                                    boxNextX = nextX;
+                                    boxNextY = nextY - 1;
+                                }
+                                case 'd' -> {
+                                    boxNextX = nextX;
+                                    boxNextY = nextY + 1;
+                                }
+                                default -> {
+
+                                }
+                            }
+                            if(boxNextX < 1 || boxNextX > currentMap.getHeight() || boxNextY < 1 || boxNextY > currentMap.getWidth())return;
+                            switch(currentMap.GetMapByIndex(boxNextX, boxNextX)) {
+                                case 0 -> {
+                                    field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
+                                    field[nextX][nextY].UpdateType(FieldType.TargetWithPlayer);
+                                    field[boxNextX][boxNextY].UpdateType(FieldType.Box);
+                                    player.setPosX(nextX);
+                                    player.setPosY(nextY);
+                                    player.setCntStep(player.getCntStep() + 1);
+                                }
+                                case 1 -> {
+                                    //Blocked
+                                }
+                                case 2 -> {
+                                    //Blocked
+                                    //More than 1 box can't be pushed
+                                }
+                                case 3 -> {
+                                    field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
+                                    field[nextX][nextY].UpdateType(FieldType.TargetWithPlayer);
+                                    field[boxNextX][boxNextY].UpdateType(FieldType.TargetWithBox);
+                                    player.setPosX(nextX);
+                                    player.setPosY(nextY);
+                                    player.setCntStep(player.getCntStep() + 1);
+                                }
+                                case 4 -> {
+                                    System.err.println("Failed in running! #Map multiple players.");
+                                    System.exit(1);
+                                }
+                                case 5 -> {
+                                    System.err.println("Failed in running! #Map multiple players.");
+                                    System.exit(1);
+                                }
+                                case 6 -> {
+                                    //Blocked
+                                    //More than 1 box can't be pushed
+                                }
                             }
                         }
                     }
-                    
+                    TestShowcase(field);
                 }
             }
         );
@@ -150,11 +276,11 @@ public class GameSystem {
 
 
     }
-    public void TestShowcase() {
+    public void TestShowcase(Field field[][]) {
         System.out.printf("Current Map %d * %d :\n", currentMap.getHeight(), currentMap.getWidth());
         for(int i = 1; i <= currentMap.getHeight(); ++i)
             for(int j = 1; j <= currentMap.getWidth(); ++j)
-                System.out.printf("%d%c", currentMap.GetMapByIndex(i, j), j == currentMap.getWidth() ? '\n' : ' ');
+                System.out.printf("%d%c", field[i][j].type, j == currentMap.getWidth() ? '\n' : ' ');
         System.out.printf("Player position %d, %d\n", player.getPosX(), player.getPosY());
     }
     
