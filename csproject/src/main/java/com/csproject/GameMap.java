@@ -1,0 +1,58 @@
+package com.csproject;
+
+public class GameMap {
+    private int height;
+    private int width;
+
+    /*
+    Map:
+    -1 <=> undefined
+    0 <=> Empty
+    1 <=> Block
+    2 <=> Box
+    3 <=> Target Position
+    4 <=> Player
+    */
+    private int[][] map;
+
+    public GameMap(int height, int width) {
+        this.height = height;
+        this.width = width;
+        this.map = new int[height + 5][width + 5];
+    }
+
+    public GameMap(int height, int width, int[][] map) {
+        this.height = height;
+        this.width = width;
+        this.map = map;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int[][] getMap() {
+        return map;
+    }
+    
+    public int GetMapByIndex(int x, int y) {
+        return this.map[x][y];
+    }
+
+    public void setMap(int[][] map) {
+        this.map = map;
+    }
+    
+}
