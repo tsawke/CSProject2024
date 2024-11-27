@@ -4,9 +4,6 @@
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib\\flatlaf-3.5.2.jar",
-        "lib/**/*.jar",
-        "lib/*.jar"
     ],
     "java.configuration.updateBuildConfiguration": "automatic"
 }
