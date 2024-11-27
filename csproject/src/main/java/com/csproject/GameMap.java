@@ -3,6 +3,7 @@ package com.csproject;
 public class GameMap {
     private int height;
     private int width;
+    private Player player;
 
     /*
     Map:
@@ -15,6 +16,17 @@ public class GameMap {
     */
     private int[][] map;
 
+    public void InitPlayer() {
+        for(int i = 1; i <= height; ++i)
+            for(int j = 1; j <= width; ++j)
+                if(this.map[i][j] == 4)
+                    this.player = new Player(i, j);
+        if(this.player == null){
+            System.err.println("Building map failed! #Map without player.");
+            System.exit(1);
+        }
+    }
+
     public GameMap(int height, int width) {
         this.height = height;
         this.width = width;
@@ -25,6 +37,14 @@ public class GameMap {
         this.height = height;
         this.width = width;
         this.map = map;
+        for(int i = 1; i <= height; ++i)
+            for(int j = 1; j <= width; ++j)
+                if(this.map[i][j] == 4)
+                    this.player = new Player(i, j);
+        if(this.player == null){
+            System.err.println("Building map failed! #Map without player.");
+            System.exit(1);
+        }
     }
 
     public int getHeight() {
