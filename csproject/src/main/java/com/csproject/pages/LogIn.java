@@ -1,30 +1,34 @@
 package com.csproject.pages;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import org.apache.commons.lang3.tuple.Pair;
-
-import com.csproject.pages.ChooseMap;
-import com.csproject.dependencies.VerticalFlowLayout;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class LogIn extends Index{
+    public static JButton CreateDefaultMenuButton(String Name) {
+        JButton button = new JButton(Name);
+        button.setFont(new Font("Arial", Font.PLAIN, 40));
+        // button.setPreferredSize(new Dimension(500, 50));
+        JPanel buttonPanel = new JPanel();
+        // buttonPanel.add(button);
+        // buttonPanel.setBackground(Color.DARK_GRAY);
+        // return Pair.of(buttonPanel, button);
+        return button;
+    }
     public static void CreateAndShowWindow() {
         FlatLightLaf.setup();
 
         JFrame frame = new JFrame("Sokoban Game");
         JPanel panel = new JPanel();
-        frame.setSize(1920, 1080);
+        frame.setSize(800, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setLayout(new BorderLayout());
@@ -37,31 +41,39 @@ public class LogIn extends Index{
         Container content = frame.getContentPane();
         content.add(panel, BorderLayout.NORTH);
 
-        Pair<JPanel, JButton> LogIn = createDefaultMenuButtonAndPanel("Log In");
+        JTextField usernameField = new JTextField(20);
+        JTextField passwordField = new JTextField(20);
+        JButton login = CreateDefaultMenuButton("Log In");
+        JButton visit = CreateDefaultMenuButton("Visitor Mode");
+        JButton signup = CreateDefaultMenuButton("Sign Up");
 
-        Pair<JPanel, JButton> Visitor = createDefaultMenuButtonAndPanel("Vistor");
+        login.addActionListener(l);
 
-        VerticalFlowLayout verticalLayout = new VerticalFlowLayout(10, 25);
-        // verticalLayout.setFill(false);
-        JPanel buttons = new JPanel(verticalLayout);
-        buttons.setBackground(Color.DARK_GRAY);
-        buttons.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
-        buttons.add(LogIn.getLeft());
-        buttons.add(Visitor.getLeft());
+        // Pair<JPanel, JButton> LogIn = createDefaultMenuButtonAndPanel("Log In");
 
-        content.add(buttons, BorderLayout.CENTER);
+        // Pair<JPanel, JButton> Visitor = createDefaultMenuButtonAndPanel("Vistor");
 
-        panel.setBackground(Color.gray);
+        // VerticalFlowLayout verticalLayout = new VerticalFlowLayout(10, 25);
+        // // verticalLayout.setFill(false);
+        // JPanel buttons = new JPanel(verticalLayout);
+        // buttons.setBackground(Color.DARK_GRAY);
+        // buttons.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        // buttons.add(LogIn.getLeft());
+        // buttons.add(Visitor.getLeft());
 
-        Visitor.getRight().addActionListener((e) -> {
-            System.out.println("Press Button.");
-            Index.CreateAndShowWindow();
-        });
+        // content.add(buttons, BorderLayout.CENTER);
 
-        LogIn.getRight().addActionListener((e) -> {
-            System.out.println("Press Button.");
-            Index.CreateAndShowWindow();
-        });
+        // panel.setBackground(Color.gray);
+
+        // Visitor.getRight().addActionListener((e) -> {
+        //     System.out.println("Press Button.");
+        //     Index.CreateAndShowWindow();
+        // });
+
+        // LogIn.getRight().addActionListener((e) -> {
+        //     System.out.println("Press Button.");
+        //     Index.CreateAndShowWindow();
+        // });
 
 
 

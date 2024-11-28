@@ -3,6 +3,8 @@ package com.csproject;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.csproject.pages.LogIn;
+
 public class Main {
     private static List<User> users = new ArrayList<>();
 
@@ -11,11 +13,13 @@ public class Main {
     public static void main(String[] args) throws Exception {
         H2Database.CreateDefaultTables();
         User.InitUsers();
-        H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(),
-                "Test", "pwd", (short) 1));
+        // H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(),
+        //         "Test", "pwd", (short) 1));
+
+        LogIn.CreateAndShowWindow();
 
         GameSystem gameSystem = new GameSystem(1);
-        gameSystem.CreateAndShowWindow();
+        // gameSystem.CreateAndShowWindow();
         
         //先显示登陆界面，并实现了Vistor功能
         // LogIn.CreateAndShowWindow();

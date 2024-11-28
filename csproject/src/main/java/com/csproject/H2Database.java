@@ -17,7 +17,7 @@ public class H2Database {
         Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
         statement.execute("DROP TABLE IF EXISTS User;");
-        statement.execute("CREATE TABLE User(UID INT PRIMARY KEY, Name VARCHAR(50) NOT NULL, Password_sha256 VARCHAR(300), Sex TINYINT);");
+        statement.execute("CREATE TABLE User(UID INT PRIMARY KEY, Username VARCHAR(50) NOT NULL, Password_sha256 VARCHAR(300), Sex TINYINT);");
     }
     public static void InsertUser(User user) throws Exception{
         Class.forName(DRIVER_CLASS);
@@ -34,7 +34,7 @@ public class H2Database {
         ResultSet res = statement.executeQuery("SELECT * FROM User;");
         List < User > ret = new ArrayList<>();
         while(res.next())
-            ret.add(new User(res.getInt("UID"), res.getString("Name"), res.getString("Password_sha256"), res.getShort("Sex")));
+            ret.add(new User(res.getInt("UID"), res.getString("Username"), res.getString("Password_sha256"), res.getShort("Sex")));
         // for(User i : ret)i.Describe();
         return ret;
     }
