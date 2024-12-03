@@ -31,6 +31,9 @@ public class GameSystem {
             this.panel.updateUI();
         }
         public void UpdateType(FieldType type){
+            if(type == FieldType.Player) {
+                
+            }
             this.type = type;
             this.panel.setBackground(this.type.getColor());
             this.panel.updateUI();
