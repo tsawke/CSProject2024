@@ -1,15 +1,23 @@
 package com.csproject.pages;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
+import java.awt.event.*;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import com.csproject.dependencies.VerticalFlowLayout;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class LogIn extends Index{
@@ -37,6 +45,7 @@ public class LogIn extends Index{
         title.setFont(new Font("Arial", Font.PLAIN, 80));
 
         panel.add(title);
+        
 
         Container content = frame.getContentPane();
         content.add(panel, BorderLayout.NORTH);
@@ -47,7 +56,16 @@ public class LogIn extends Index{
         JButton visit = CreateDefaultMenuButton("Visitor Mode");
         JButton signup = CreateDefaultMenuButton("Sign Up");
 
-        login.addActionListener(l);
+        login.addActionListener(
+            new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String username = usernameField.getText();
+                    String password = passwordField.getText();
+
+                }
+            }
+        );
 
         // Pair<JPanel, JButton> LogIn = createDefaultMenuButtonAndPanel("Log In");
 

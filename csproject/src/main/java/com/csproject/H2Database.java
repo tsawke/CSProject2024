@@ -23,7 +23,7 @@ public class H2Database {
         Class.forName(DRIVER_CLASS);
         Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
-        statement.executeUpdate(String.format("INSERT INTO User VALUES(%d, '%s', '%s', %d);", user.getUID(), user.getName(), user.getPassword_sha256(), user.getSex()));
+        statement.executeUpdate(String.format("INSERT INTO User VALUES(%d, '%s', '%s', %d);", user.getUID(), user.getUsername(), user.getPassword_sha256(), user.getSex()));
     
         User.InitUsers();
     }
