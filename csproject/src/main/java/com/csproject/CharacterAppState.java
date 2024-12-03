@@ -123,6 +123,9 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
         // assetManager.registerLocator("./csproject/src/main/resources/town.zip", ZipLocator.class);
         // assetManager.loadAsset("./csproject/src/main/resources/town.zip");
         
+//https://www.jmecn.net/wiki/beginner/hello_asset.html
+//不看教程没搞明白assetManager，警示亿下
+
         this.model = assetManager.loadModel("Jaime.j3o");
         // this.model = assetManager.loadModel("csproject\\src\\main\\resources\\Models\\Elephant\\Elephant.l");
         character.attachChild(model);// 挂到角色根节点下
