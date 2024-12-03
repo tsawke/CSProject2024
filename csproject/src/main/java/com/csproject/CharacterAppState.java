@@ -123,7 +123,7 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
         // assetManager.registerLocator("./csproject/src/main/resources/town.zip", ZipLocator.class);
         // assetManager.loadAsset("./csproject/src/main/resources/town.zip");
         
-        this.model = assetManager.loadModel("Models/Jamie/Jaime.j3o");
+        this.model = assetManager.loadModel("Jaime.j3o");
         // this.model = assetManager.loadModel("csproject\\src\\main\\resources\\Models\\Elephant\\Elephant.l");
         character.attachChild(model);// 挂到角色根节点下
 
