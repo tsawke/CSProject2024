@@ -13,6 +13,8 @@ public class GameMap {
     2 <=> Box
     3 <=> Target Position
     4 <=> Player
+    5 <=> TargetWithPlayer
+    6 <=> TargetWithBox
     */
     private int[][] map;
 

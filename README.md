@@ -11,13 +11,14 @@
 - Map (Victoria)(tsawke)
 - Player (tsawke)
 - AI recommended route(optional)
-- Showcase map
+- Showcase map(tsawke)
 - Player move and count steps, etc(tsawke)
 - Ranklist
 - UI
 - ...
 
 ## Logs
+- 20241128 - tsawke - Complete basic core GameSystem.
 - 20241127 - tsawke - Create GameMap, GameSystem, Player.
 - 20241119 - Victoria - LogIn page complete.
 - 20241118 - Victoria - ChooseMap 80% complete (TODO: picture, exit).
