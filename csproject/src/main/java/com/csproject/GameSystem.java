@@ -115,18 +115,18 @@ public class GameSystem {
                         }
                     }
                     if(nextX < 1 || nextX > currentMap.getHeight() || nextY < 1 || nextY > currentMap.getWidth())return;
-                    switch(currentMap.GetMapByIndex(nextX, nextY)) {
-                        case 0 -> {
+                    switch(field[nextX][nextY].type) {
+                        case Empty -> {
                             field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
                             field[nextX][nextY].UpdateType(FieldType.Player);
                             player.setPosX(nextX);
                             player.setPosY(nextY);
                             player.setCntStep(player.getCntStep() + 1);
                         }
-                        case 1 -> {
+                        case Blocked -> {
                             //Blocked
                         }
-                        case 2 -> {
+                        case Box -> {
                             int boxNextX = -1;
                             int boxNextY = -1;
                             switch(c) {
@@ -151,8 +151,8 @@ public class GameSystem {
                                 }
                             }
                             if(boxNextX < 1 || boxNextX > currentMap.getHeight() || boxNextY < 1 || boxNextY > currentMap.getWidth())return;
-                            switch(currentMap.GetMapByIndex(boxNextX, boxNextX)) {
-                                case 0 -> {
+                            switch(field[boxNextX][boxNextY].type) {
+                                case Empty -> {
                                     field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
                                     field[nextX][nextY].UpdateType(FieldType.Player);
                                     field[boxNextX][boxNextY].UpdateType(FieldType.Box);
@@ -160,14 +160,14 @@ public class GameSystem {
                                     player.setPosY(nextY);
                                     player.setCntStep(player.getCntStep() + 1);
                                 }
-                                case 1 -> {
+                                case Blocked -> {
                                     //Blocked
                                 }
-                                case 2 -> {
+                                case Box -> {
                                     //Blocked
                                     //More than 1 box can't be pushed
                                 }
-                                case 3 -> {
+                                case Target -> {
                                     field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
                                     field[nextX][nextY].UpdateType(FieldType.Player);
                                     field[boxNextX][boxNextY].UpdateType(FieldType.TargetWithBox);
@@ -175,36 +175,36 @@ public class GameSystem {
                                     player.setPosY(nextY);
                                     player.setCntStep(player.getCntStep() + 1);
                                 }
-                                case 4 -> {
+                                case Player -> {
                                     System.err.println("Failed in running! #Map multiple players.");
                                     System.exit(1);
                                 }
-                                case 5 -> {
+                                case TargetWithPlayer -> {
                                     System.err.println("Failed in running! #Map multiple players.");
                                     System.exit(1);
                                 }
-                                case 6 -> {
+                                case TargetWithBox -> {
                                     //Blocked
                                     //More than 1 box can't be pushed
                                 }
                             }
                         }
-                        case 3 -> {
+                        case Target -> {
                             field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
                             field[nextX][nextY].UpdateType(FieldType.TargetWithPlayer);
                             player.setPosX(nextX);
                             player.setPosY(nextY);
                             player.setCntStep(player.getCntStep() + 1);
                         }
-                        case 4 -> {
+                        case Player -> {
                             System.err.println("Failed in running! #Map multiple players.");
                             System.exit(1);
                         }
-                        case 5 -> {
+                        case TargetWithPlayer -> {
                             System.err.println("Failed in running! #Map multiple players.");
                             System.exit(1);
                         }
-                        case 6 -> {
+                        case TargetWithBox -> {
                             int boxNextX = -1;
                             int boxNextY = -1;
                             switch(c) {
@@ -229,8 +229,8 @@ public class GameSystem {
                                 }
                             }
                             if(boxNextX < 1 || boxNextX > currentMap.getHeight() || boxNextY < 1 || boxNextY > currentMap.getWidth())return;
-                            switch(currentMap.GetMapByIndex(boxNextX, boxNextX)) {
-                                case 0 -> {
+                            switch(field[boxNextX][boxNextY].type) {
+                                case Empty -> {
                                     field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
                                     field[nextX][nextY].UpdateType(FieldType.TargetWithPlayer);
                                     field[boxNextX][boxNextY].UpdateType(FieldType.Box);
@@ -238,14 +238,14 @@ public class GameSystem {
                                     player.setPosY(nextY);
                                     player.setCntStep(player.getCntStep() + 1);
                                 }
-                                case 1 -> {
+                                case Blocked -> {
                                     //Blocked
                                 }
-                                case 2 -> {
+                                case Box -> {
                                     //Blocked
                                     //More than 1 box can't be pushed
                                 }
-                                case 3 -> {
+                                case Target -> {
                                     field[curX][curY].UpdateType(field[curX][curY].type == FieldType.Player ? FieldType.Empty : FieldType.Target);
                                     field[nextX][nextY].UpdateType(FieldType.TargetWithPlayer);
                                     field[boxNextX][boxNextY].UpdateType(FieldType.TargetWithBox);
@@ -253,15 +253,15 @@ public class GameSystem {
                                     player.setPosY(nextY);
                                     player.setCntStep(player.getCntStep() + 1);
                                 }
-                                case 4 -> {
+                                case Player -> {
                                     System.err.println("Failed in running! #Map multiple players.");
                                     System.exit(1);
                                 }
-                                case 5 -> {
+                                case TargetWithPlayer -> {
                                     System.err.println("Failed in running! #Map multiple players.");
                                     System.exit(1);
                                 }
-                                case 6 -> {
+                                case TargetWithBox -> {
                                     //Blocked
                                     //More than 1 box can't be pushed
                                 }
