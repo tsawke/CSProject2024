@@ -1,6 +1,7 @@
 package com.csproject;
 
 import java.io.File;
+import java.util.stream.IntStream;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
@@ -11,9 +12,12 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.asset.AssetManager;
+import com.jme3.asset.plugins.FileLocator;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.input.ChaseCamera;
 import com.jme3.input.InputManager;
 import com.jme3.math.Quaternion;
@@ -65,6 +69,25 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
     private AssetManager assetManager;
     private InputManager inputManager;
     private AppStateManager stateManager;
+
+    public CharacterControl getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(CharacterControl player) {
+        this.player = player;
+    }
+
+    public RigidBodyControl[] getPlayer_rigid() {
+        return player_rigid;
+    }
+
+    public void setPlayer_rigid(RigidBodyControl[] player_rigid) {
+        this.player_rigid = player_rigid;
+    }
+
+    private RigidBodyControl[] player_rigid;
+    
 
     @Override
     protected void initialize(Application app) {
@@ -125,8 +148,8 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
         
 //https://www.jmecn.net/wiki/beginner/hello_asset.html
 //不看教程没搞明白assetManager，警示亿下
-
-        this.model = assetManager.loadModel("Jaime.j3o");
+        assetManager.registerLocator("./csproject/src/main/resources/", FileLocator.class);
+        this.model = assetManager.loadModel("Models/Jaime/Jaime.j3o");
         // this.model = assetManager.loadModel("csproject\\src\\main\\resources\\Models\\Elephant\\Elephant.l");
         character.attachChild(model);// 挂到角色根节点下
 
@@ -145,10 +168,32 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
     private void initPhysics() {
         // 使用胶囊体作为玩家的碰撞形状
         CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(radius, height, 1);
-
+        
+        BulletAppState bullet = getStateManager().getState(BulletAppState.class);
         // 使用CharacterControl来控制玩家物体
-        this.player = new CharacterControl(capsuleShape, stepHeight);
+        // this.player = new CharacterControl(capsuleShape, stepHeight);
+        this.player = new CharacterControl(new BoxCollisionShape(new Vector3f(0.0001f, 1f, 0.0001f)), stepHeight);
         character.addControl(player);// 绑定角色控制器
+        player_rigid = new RigidBodyControl[9];
+        // player_rigid[1] = new RigidBodyControl(new BoxCollisionShape(new Vector3f(0.5f, 1, 0.5f)), 10f);
+        // player_rigid[2] = new RigidBodyControl(new BoxCollisionShape(new Vector3f(0.5f, 1, 0.5f)), 10f);
+        // player_rigid[3] = new RigidBodyControl(new BoxCollisionShape(new Vector3f(0.5f, 1, 0.5f)), 2f);
+        // player_rigid[4] = new RigidBodyControl(new BoxCollisionShape(new Vector3f(0.5f, 1, 0.5f)), 2f);
+        // RigidBodyControl
+
+        // character.addControl(animControl);
+        // character.addControl(player_rigid);
+        
+        // bullet.getPhysicsSpace().add(player_rigid);
+        // bullet.getPhysicsSpace().add(player);
+        IntStream.range(1, 8 + 1).forEach(
+            i->{
+                player_rigid[i] = new RigidBodyControl(new BoxCollisionShape(new Vector3f(0.2f, 1, 0.2f)), 10f);
+                bullet.getPhysicsSpace().add(player_rigid[i]);
+            }
+        );
+        
+        
 
         player.setJumpSpeed(10);// 起跳速度
         player.setFallSpeed(55);// 坠落速度
