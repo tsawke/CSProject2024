@@ -37,8 +37,11 @@ public class GameSystem {
             }
         )
     );
+
     private GameMap currentMap;
     private Player player;
+
+    public boolean isGuest = false;
 
     private class Field{
         public JPanel panel;
