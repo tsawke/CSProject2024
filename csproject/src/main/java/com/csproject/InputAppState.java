@@ -12,20 +12,10 @@ import com.jme3.input.controls.Trigger;
 import com.jme3.math.Vector3f;
 import com.jme3.util.TempVars;
 
-/**
- * 输入管理模块
- * 
- * @author yanmaoyuan
- *
- */
 public class InputAppState extends BaseAppState implements ActionListener {
-    /**
-     * 显示或隐藏BulletAppState的debug形状。按F1键触发。
-     */
     public final static String DEBUG = "debug";
     public final static Trigger DEBUG_TRIGGER = new KeyTrigger(KeyInput.KEY_F1);
 
-    // 前、后、左、右、跳跃
     public final static String FORWARD = "forward";
     public final static Trigger FORWARD_TRIGGER = new KeyTrigger(KeyInput.KEY_W);
 
@@ -56,8 +46,7 @@ public class InputAppState extends BaseAppState implements ActionListener {
     }
 
     @Override
-    protected void cleanup(Application app) {
-    }
+    protected void cleanup(Application app) {}
 
     @Override
     protected void onEnable() {
@@ -108,7 +97,7 @@ public class InputAppState extends BaseAppState implements ActionListener {
 
     private void toggleBulletDebug() {
         BulletAppState bulletAppState = stateManager.getState(BulletAppState.class);
-        if (bulletAppState != null) {
+        if(bulletAppState != null) {
             boolean debugEnabled = bulletAppState.isDebugEnabled();
             bulletAppState.setDebugEnabled(!debugEnabled);
         }

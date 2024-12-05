@@ -1,6 +1,10 @@
 package com.csproject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
@@ -10,20 +14,19 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Geometry;
 
-/**
- * 演示使用第三人称控制Jaime在地图中自由行走。
- * 
- * @author yanmaoyuan
- *
- */
 public class jMEMain extends SimpleApplication {
 
-    public static int mapIndex = 1;
+    public static int mapIndex = 2;
+    public static List < Pair < Float, Float > > targets = new ArrayList<>();
+    public static List < Geometry > boxes = new ArrayList<>();
 
     private CharacterAppState characterAppState;
     private BulletAppState bulletAppState;
     private SceneAppState sceneAppState;
+    private InputAppState inputAppState;
+    
     public jMEMain() {
         super(new StatsAppState());
     }
@@ -33,17 +36,15 @@ public class jMEMain extends SimpleApplication {
         bulletAppState = new BulletAppState();
         sceneAppState = new SceneAppState();
         characterAppState = new CharacterAppState();
+        inputAppState = new InputAppState();
 
-        stateManager.attachAll(bulletAppState, 
-                sceneAppState,
-                characterAppState,
-                new InputAppState());
+        stateManager.attachAll(bulletAppState, sceneAppState, characterAppState, inputAppState);
         
-        // 环境光
+        // Environmental Light
         AmbientLight ambient = new AmbientLight();
         ambient.setColor(new ColorRGBA(0.7f, 0.7f, 0.7f, 0.6f));
 
-        // 阳光
+        // Sunlight
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection(new Vector3f(-1, -2, -3).normalizeLocal());
         rootNode.addLight(ambient);
@@ -83,10 +84,25 @@ public class jMEMain extends SimpleApplication {
                 characterAppState.getPlayer_rigid()[i].setPhysicsRotation(new Matrix3f());
             }
         );
-        
-        // characterAppState.getPlayer_rigid().setAngula(
-        //     characterAppState.getPlayer().getWalkDirection()
-        // );
+        // for(Pair < Float, Float > t : targets)
+        //     System.out.println(t.getKey() + " " + t.getRight());
+        // for(Geometry g : boxes)
+        //     System.out.println(g.getLocalTranslation().x + " " + g.getLocalTranslation().z);
+        boolean complete = true;
+        for(Pair < Float, Float > t : targets) {
+            boolean achieve = false;
+            for(Geometry g : boxes) {
+                Vector3f pos =  g.getLocalTranslation();
+                if(Math.abs(t.getLeft() - pos.x) < 0.3f && Math.abs(t.getRight() - pos.z) < 0.3f){
+                    achieve = true;
+                    break;
+                }
+            }complete &= achieve;
+        }
+        if(complete) {
+            System.err.println("Success");
+            System.exit(0);
+        }
     }
 
     public static void main(String[] args) {

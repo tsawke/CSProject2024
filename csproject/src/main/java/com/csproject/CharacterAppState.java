@@ -1,7 +1,8 @@
 package com.csproject;
 
-import java.io.File;
 import java.util.stream.IntStream;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
@@ -15,7 +16,6 @@ import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
-import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.input.ChaseCamera;
@@ -26,49 +26,30 @@ import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
-/**
- * 角色控制模块
- * 
- * @author yanmaoyuan
- *
- */
 public class CharacterAppState extends BaseAppState implements AnimEventListener {
+    private float height = 1.8f;
+    private float stepLength = 0.5f;
 
-    /**
-     * 角色的尺寸
-     */
-    private float radius = 0.3f;// 胶囊半径0.3米
-    private float height = 1.8f;// 胶囊身高1.8米
-    private float stepHeight = 0.5f;// 角色步高0.5米
-
-    /**
-     * 角色相关模型
-     */
     private Node character;
-    private Spatial model;// 角色模型
-    private Node camNode;// 辅助摄像机节点
-    private CharacterControl player;// 角色控制器
+    private Spatial model;
+    private Node camNode;
+    private CharacterControl player;
 
-    /**
-     * 用于计算角色行走方向的变量
-     */
     private Vector3f walkDir = new Vector3f();
     private Vector3f camDir = new Vector3f();
     private Quaternion camRot = new Quaternion();
 
-    /**
-     * 动画控制器
-     */
     private AnimControl animControl;
     private AnimChannel animChannel;
 
-    /**
-     * 全局对象
-     */
     private Camera cam;
     private AssetManager assetManager;
     private InputManager inputManager;
     private AppStateManager stateManager;
+
+    public static Pair < Float, Float > defaultPlayerPosition;
+
+    private RigidBodyControl[] player_rigid;
 
     public CharacterControl getPlayer() {
         return player;
@@ -86,9 +67,6 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
         this.player_rigid = player_rigid;
     }
 
-    private RigidBodyControl[] player_rigid;
-    
-
     @Override
     protected void initialize(Application app) {
         this.cam = app.getCamera();
@@ -96,96 +74,51 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
         this.inputManager = app.getInputManager();
         this.stateManager = app.getStateManager();
 
-        initCharacter();// 角色模型
-        initPhysics();// 物理控制
-        initAnimation();// 骨骼动画
-        initChaseCamera();//第三人称摄像机
-
+        initCharacter();
+        initPhysics();
+        initAnimation();
+        initChaseCamera();
     }
 
     @Override
     public void update(float tpf) {
 
         if (walkDir.lengthSquared() != 0) {
-            // 计算摄像机在水平面的方向
             camDir.set(cam.getDirection());
             camDir.y = 0;
             camDir.normalizeLocal();
-
-            // 根据摄像机方向，计算旋转角度
             camRot.lookAt(camDir, Vector3f.UNIT_Y);
-
-            // 使用该旋转，改变行走方向。
             camRot.mult(walkDir, camDir);
-
-            // 改变玩家的朝向
             player.setViewDirection(camDir);
-
-            // 调整速度大小
             camDir.multLocal(0.1f);
-        } else {
+        } else
             camDir.set(0, 0, 0);
-        }
-
         player.setWalkDirection(camDir);
         cam.setLocation(camNode.getWorldTranslation());
     }
 
-    /**
-     * 初始化角色节点
-     */
     private void initCharacter() {
         this.character = new Node("Character");
-        character.setLocalTranslation(0, height / 2 + radius, 0);
-            File directory = new File("");//设定为当前文件夹 
-// try{ 
-//     System.out.println(directory.getCanonicalPath());//获取标准的路径 
-//     System.out.println(directory.getAbsolutePath());//获取绝对路径 
-// }catch(Exception e){} 
-        // 加载模型
-        // assetManager.registerLocator("./csproject/src/main/resources/town.zip", ZipLocator.class);
-        // assetManager.loadAsset("./csproject/src/main/resources/town.zip");
-        
-//https://www.jmecn.net/wiki/beginner/hello_asset.html
-//不看教程没搞明白assetManager，警示亿下
+        character.setLocalTranslation(defaultPlayerPosition.getLeft(), height / 2, defaultPlayerPosition.getRight());
+
         assetManager.registerLocator("./csproject/src/main/resources/", FileLocator.class);
         this.model = assetManager.loadModel("Models/Jaime/Jaime.j3o");
-        // this.model = assetManager.loadModel("csproject\\src\\main\\resources\\Models\\Elephant\\Elephant.l");
-        character.attachChild(model);// 挂到角色根节点下
+        character.attachChild(model);
 
-        model.setLocalTranslation(0, -(height / 2 + radius), 0);
+        model.setLocalTranslation(0, -(height / 2f), 0);
         model.scale(1.8f);
 
-        // 创造一个辅助节点，用于修正摄像机的位置。
         this.camNode = new Node("Camera");
         character.attachChild(camNode);
-        camNode.setLocalTranslation(0, height / 2, radius);// 将此节点上移一段距离，使摄像机位于角色的头部。
+        camNode.setLocalTranslation(0, height / 2, 0);
     }
 
-    /**
-     * 为角色增加物理属性
-     */
     private void initPhysics() {
-        // 使用胶囊体作为玩家的碰撞形状
-        CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(radius, height, 1);
-        
         BulletAppState bullet = getStateManager().getState(BulletAppState.class);
-        // 使用CharacterControl来控制玩家物体
-        // this.player = new CharacterControl(capsuleShape, stepHeight);
-        this.player = new CharacterControl(new BoxCollisionShape(new Vector3f(0.0001f, 1f, 0.0001f)), stepHeight);
-        character.addControl(player);// 绑定角色控制器
+        this.player = new CharacterControl(new BoxCollisionShape(new Vector3f(0.1f, 1f, 0.1f)), stepLength);
+        character.addControl(player);
         player_rigid = new RigidBodyControl[9];
-        // player_rigid[1] = new RigidBodyControl(new BoxCollisionShape(new Vector3f(0.5f, 1, 0.5f)), 10f);
-        // player_rigid[2] = new RigidBodyControl(new BoxCollisionShape(new Vector3f(0.5f, 1, 0.5f)), 10f);
-        // player_rigid[3] = new RigidBodyControl(new BoxCollisionShape(new Vector3f(0.5f, 1, 0.5f)), 2f);
-        // player_rigid[4] = new RigidBodyControl(new BoxCollisionShape(new Vector3f(0.5f, 1, 0.5f)), 2f);
-        // RigidBodyControl
 
-        // character.addControl(animControl);
-        // character.addControl(player_rigid);
-        
-        // bullet.getPhysicsSpace().add(player_rigid);
-        // bullet.getPhysicsSpace().add(player);
         IntStream.range(1, 8 + 1).forEach(
             i->{
                 player_rigid[i] = new RigidBodyControl(new BoxCollisionShape(new Vector3f(0.2f, 1, 0.2f)), 10f);
@@ -193,19 +126,14 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
             }
         );
         
-        
-
-        player.setJumpSpeed(10);// 起跳速度
-        player.setFallSpeed(55);// 坠落速度
-        player.setGravity(9.8f * 3);// 重力加速度
-        player.setPhysicsLocation(new Vector3f(0, height / 2 + radius, 0));// 位置
+        player.setJumpSpeed(10);
+        player.setFallSpeed(55);
+        player.setGravity(9.8f * 3);
+        player.setPhysicsLocation(new Vector3f(defaultPlayerPosition.getLeft(), height / 2, defaultPlayerPosition.getRight()));
 
         stateManager.getState(BulletAppState.class).getPhysicsSpace().add(player);
     }
 
-    /**
-     * 初始化角色动画
-     */
     private void initAnimation() {
         animControl = model.getControl(AnimControl.class);
         animChannel = animControl.createChannel();
@@ -214,14 +142,11 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
         animChannel.setAnim("Idle");
     }
     
-    /**
-     * 第三人称摄像机
-     */
     private void initChaseCamera() {
         ChaseCamera chaseCam = new ChaseCamera(cam, camNode, inputManager);
-        chaseCam.setInvertVerticalAxis(true);// 垂直反转
-        chaseCam.setMinDistance(0.1f);// 相机离焦点的最近距离
-        chaseCam.setDefaultDistance(10f);// 默认距离
+        chaseCam.setInvertVerticalAxis(true);
+        chaseCam.setMinDistance(0.1f);
+        chaseCam.setDefaultDistance(10f);
     }
 
     @Override
@@ -235,9 +160,6 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
         character.removeFromParent();
     }
 
-    /**
-     * 让角色跳起来
-     */
     public void jump() {
         if (player.onGround()) {
             player.jump();
@@ -248,28 +170,17 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
         }
     }
 
-    /**
-     * 让角色走路
-     * 
-     * @param dir
-     */
     public void walk(Vector3f dir) {
         if (dir != null) {
-            
             if (walkDir.lengthSquared() == 0) {
                 animChannel.setAnim("Walk");
                 animChannel.setSpeed(3f);
             }
-            
             dir.normalizeLocal();
-
             walkDir.set(dir);
         }
     }
 
-    /**
-     * 让角色停下来
-     */
     public void idle() {
         walkDir.set(0, 0, 0);
         if (player.onGround()) {
@@ -280,13 +191,11 @@ public class CharacterAppState extends BaseAppState implements AnimEventListener
     @Override
     public void onAnimCycleDone(AnimControl control, AnimChannel channel, String animName) {
         if ("JumpStart".equals(animName)) {
-            // “起跳”动作结束后，紧接着播放“着地”动画。
             channel.setAnim("JumpEnd");
             channel.setLoopMode(LoopMode.DontLoop);
             channel.setSpeed(1.8f);
 
         } else if ("JumpEnd".equals(animName)) {
-            // “着地”后，根据按键状态来播放“行走”或“闲置”动画。
             if (walkDir.lengthSquared() != 0) {
                 channel.setAnim("Walk");
                 channel.setLoopMode(LoopMode.Loop);
