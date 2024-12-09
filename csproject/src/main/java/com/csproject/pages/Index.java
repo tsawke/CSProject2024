@@ -18,6 +18,7 @@ import com.csproject.dependencies.VerticalFlowLayout;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class Index {
+    public static JFrame frame;
     public static Pair<JPanel, JButton> createDefaultMenuButtonAndPanel(String Name) {
         JButton button = new JButton(Name);
         button.setFont(new Font("Arial", Font.PLAIN, 40));
@@ -31,7 +32,7 @@ public class Index {
     public static void CreateAndShowWindow() {
         FlatLightLaf.setup();
 
-        JFrame frame = new JFrame("Sokoban Game");
+        frame = new JFrame("Sokoban Game");
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -89,5 +90,7 @@ public class Index {
         content.add(buttons, BorderLayout.CENTER);
 
         frame.setVisible(true);
+
+        LogIn.CreateAndShowDialog();
     }
 }

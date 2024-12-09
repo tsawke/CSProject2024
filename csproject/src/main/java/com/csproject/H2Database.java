@@ -43,7 +43,7 @@ public class H2Database {
         // for(User i : ret)i.Describe();
         return ret;
     }
-    public static boolean ExistUserByUsername(String username) throws Exception {
+    public static boolean IfExistUserByUsername(String username) throws Exception {
         Class.forName(DRIVER_CLASS);
         Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
@@ -54,7 +54,7 @@ public class H2Database {
         return ret.size() >= 1;
     }
     public static User SelectUserByUsername(String username) throws Exception {
-        if(!ExistUserByUsername(username))System.exit(1);
+        if(!IfExistUserByUsername(username))System.exit(1);
         Class.forName(DRIVER_CLASS);
         Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();

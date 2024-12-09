@@ -7,7 +7,8 @@
 - Database to store UID, password, score, etc(tsawke)
 - User configuration(tsawke)
 - Choose map(Victoria)
-- LogIn (Victoia)
+- LogIn (tsawke)
+- SignUp (tsawke)
 - Map (Victoria)(tsawke)
 - Player (tsawke)
 - AI recommended route(optional)
@@ -19,6 +20,8 @@
 - ...
 
 ## Logs
+- 20241210 - tsawke - Create some utils and template.
+- 20241210 - tsawke - Rewrite LogIn, SignUp.
 - 20241205 - tsawke - Complete basic 3DGameSystem.
 - 20241128 - tsawke - Complete basic core GameSystem.
 - 20241127 - tsawke - Create GameMap, GameSystem, Player.
