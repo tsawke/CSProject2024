@@ -18,12 +18,12 @@ import javax.swing.JTextField;
 
 import com.csproject.BeautifyUtils;
 import com.csproject.EncryptUtils;
+import com.csproject.GameSystem;
 import com.csproject.H2Database;
 import com.csproject.User;
 import com.csproject.dependencies.Validator;
 
 public class LogIn {
-    public static User user;
     public static int LogInUser(String username, String password_plain) throws Exception {
         if(
             !H2Database.IfExistUserByUsername(username) ||
@@ -33,7 +33,7 @@ public class LogIn {
         User currentUser = H2Database.SelectUserByUsername(username);
         String password_sha256 = EncryptUtils.sha256(password_plain);
         if(currentUser.getPassword_sha256().equals(password_sha256))return 2;
-        user = currentUser;
+        User.currentUser = currentUser;
         return 0;
     }
     public static JButton CreateDefaultMenuButton(String Name) {
@@ -142,18 +142,13 @@ public class LogIn {
         JButton visit = CreateDefaultMenuButton("Visitor");
         JButton signup = CreateDefaultMenuButton("Sign Up");
 
-<<<<<<< HEAD
-        //login.addActionListener(l);
-=======
         JPanel buttonPanel = new JPanel();
-        //TODO Why PreferredSize works, but Size doesn't?
         buttonPanel.setSize(600, 80);
         // buttonPanel.setPreferredSize(new Dimension(600, 80));
         buttonPanel.setLayout(new GridLayout(1, 3, 30, 20));
         buttonPanel.add(login);
         buttonPanel.add(signup);
         buttonPanel.add(visit);
->>>>>>> ce6a12f80c7da53291c1f14cc9f5c7559a1308ff
 
         // JPanel buttonBorderPanel = new JPanel();
         // buttonBorderPanel.setLayout(new FlowLayout());
@@ -203,6 +198,19 @@ public class LogIn {
                         default -> {}
                     }
                 } catch (Exception e1) {}
+            }
+        );
+        signup.addActionListener(
+            e -> {
+                dialog.dispose();
+                SignUp.CreateAndShowDialog();
+            }
+        );
+        visit.addActionListener(
+            e -> {
+                GameSystem.isGuest = true;
+                User.currentUser = null;
+                dialog.dispose();
             }
         );
 

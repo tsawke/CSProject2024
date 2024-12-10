@@ -21,17 +21,21 @@ import com.csproject.BeautifyUtils;
 import com.csproject.EncryptUtils;
 import com.csproject.H2Database;
 import com.csproject.User;
+import com.csproject.dependencies.Validator;
 
 public class SignUp {
-    public void SignUpUser(String username, String password_plain, short sex) throws Exception{
+    public static int SignUpUser(String username, String password_plain) throws Exception{
+        if(!Validator.isUsername(username))return 1;
+        if(!Validator.isPassword(password_plain))return 2;
+        if(H2Database.IfExistUserByUsername(username))return 3;
         H2Database.InsertUser(
             new User(
                 H2Database.GetUsers().size() + 1,
                 username,
-                EncryptUtils.sha256(password_plain),
-                sex
+                EncryptUtils.sha256(password_plain)
             )
         );
+        return 0;
     }
 
     public static JButton CreateDefaultMenuButton(String Name) {
@@ -46,8 +50,8 @@ public class SignUp {
         JLabel lable = new JLabel(Name);
         lable.setFont(new Font("Arial", Font.PLAIN, 35));
 
-        JTextField textField = new JTextField(30);
-        textField.setPreferredSize(new Dimension(30, 30));
+        JTextField textField = new JTextField(40);
+        textField.setPreferredSize(new Dimension(40, 30));
         textField.setBorder(BeautifyUtils.defaultGrayBorder);
 
         panel.add(lable);
@@ -72,7 +76,7 @@ public class SignUp {
         JPanel panel = new JPanel();
         panel.setBackground(Color.gray);
 
-        JLabel title = new JLabel("Log In");
+        JLabel title = new JLabel("Sign Up");
         title.setFont(new Font("Arial", Font.PLAIN, 80));
 
         panel.add(title);
@@ -109,15 +113,6 @@ public class SignUp {
         //     .findFirst()
         // ));
         usernameLabel.setToolTipText("6-20 digits, only letters and digits are available.");
-        // usernameTextField.setText("6-20 digits, only letters and digits are available");
-
-        // usernameTextField.addFocusListener(
-        //     new FocusListener() {
-        //         public void focusGained(FocusEvent e) {
-
-        //         }
-        //     };
-        // );
 
         JPanel passwordPanel = CreateDefaultTextFieldWithLable("Password: ");
         
@@ -135,17 +130,12 @@ public class SignUp {
 
         passwordLabel.setToolTipText("6-15 digits, only letters and digits are available, not allowed to consist of only letters or numbers.");
 
-        JButton login = CreateDefaultMenuButton("Log In");
-        JButton visit = CreateDefaultMenuButton("Visitor");
         JButton signup = CreateDefaultMenuButton("Sign Up");
 
         JPanel buttonPanel = new JPanel();
-        //TODO Why PreferredSize works, but Size doesn't?
-        buttonPanel.setPreferredSize(new Dimension(600, 80));
-        buttonPanel.setLayout(new GridLayout(1, 3, 30, 20));
-        buttonPanel.add(login);
+        buttonPanel.setPreferredSize(new Dimension(300, 80));
+        buttonPanel.setLayout(new GridLayout(1, 1, 30, 20));
         buttonPanel.add(signup);
-        buttonPanel.add(visit);
 
         // JPanel buttonBorderPanel = new JPanel();
         // buttonBorderPanel.setLayout(new FlowLayout());
@@ -176,13 +166,28 @@ public class SignUp {
 
         // mainPanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
 
-        login.addActionListener(
+        signup.addActionListener(
             e -> {
                 String username = usernameTextField.getText();
                 String password_plain = passwordTextField.getText();
-                // switch(LogInUser(username, password_plain)) {
-                    
-                // }
+                try {
+                    switch(SignUpUser(username, password_plain)) {
+                        case 0 -> {
+                            LogIn.LogInUser(username, password_plain);
+                            dialog.dispose();
+                        }
+                        case 1 -> {
+                            ErrorDialog.CreateAndShowDialog(dialog, "Username is invalid!");
+                        }
+                        case 2 -> {
+                            ErrorDialog.CreateAndShowDialog(dialog, "Password is invalid!");
+                        }
+                        case 3 -> {
+                            ErrorDialog.CreateAndShowDialog(dialog, "Username is already exists!");
+                        }
+                        default -> {}
+                    }
+                } catch (Exception ex) {}
             }
         );
 

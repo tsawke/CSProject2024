@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.csproject.BeautifyUtils;
+import com.csproject.GameSystem;
+import com.csproject.User;
 import com.csproject.dependencies.VerticalFlowLayout;
 import com.formdev.flatlaf.FlatLightLaf;
 
@@ -55,13 +58,18 @@ public class Index {
         Pair<JPanel, JButton> setting = createDefaultMenuButtonAndPanel("Setting");
         Pair<JPanel, JButton> exit = createDefaultMenuButtonAndPanel("Exit");
 
+        if(User.currentUser == null || GameSystem.isGuest || false/* TODO */) {
+            loadArchive.getRight().setBackground(Color.GRAY);
+            loadArchive.getRight().setBorder(BeautifyUtils.defaultGrayBorder);
+        } else {
+            loadArchive.getRight().addActionListener((e) -> {
+                System.out.println("Press Button.");
+            });
+        }
+
         newGame.getRight().addActionListener((e) -> {
             System.out.println("Press Button.");
-            ChooseMap.CreateAndShowWindow();
-        });
-
-        loadArchive.getRight().addActionListener((e) -> {
-            System.out.println("Press Button.");
+            // ChooseMap.CreateAndShowWindow();
         });
 
         rankList.getRight().addActionListener((e) -> {
@@ -92,5 +100,6 @@ public class Index {
         frame.setVisible(true);
 
         LogIn.CreateAndShowDialog();
+        // SignUp.CreateAndShowDialog();
     }
 }

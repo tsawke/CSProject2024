@@ -22,13 +22,13 @@ public class H2Database {
          * 1 - Male
          * -1 - unknown
          */
-        statement.execute("CREATE TABLE User(UID INT PRIMARY KEY, Username VARCHAR(50) NOT NULL, Password_sha256 VARCHAR(300), Sex TINYINT);");
+        statement.execute("CREATE TABLE User(UID INT PRIMARY KEY, Username VARCHAR(50) NOT NULL, Password_sha256 VARCHAR(300));");
     }
     public static void InsertUser(User user) throws Exception{
         Class.forName(DRIVER_CLASS);
         Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
-        statement.executeUpdate(String.format("INSERT INTO User VALUES(%d, '%s', '%s', %d);", user.getUID(), user.getUsername(), user.getPassword_sha256(), user.getSex()));
+        statement.executeUpdate(String.format("INSERT INTO User VALUES(%d, '%s', '%s');", user.getUID(), user.getUsername(), user.getPassword_sha256()));
     
         User.InitUsers();
     }
@@ -39,7 +39,7 @@ public class H2Database {
         ResultSet res = statement.executeQuery("SELECT * FROM User;");
         List < User > ret = new ArrayList<>();
         while(res.next())
-            ret.add(new User(res.getInt("UID"), res.getString("Username"), res.getString("Password_sha256"), res.getShort("Sex")));
+            ret.add(new User(res.getInt("UID"), res.getString("Username"), res.getString("Password_sha256")));
         // for(User i : ret)i.Describe();
         return ret;
     }
@@ -50,7 +50,7 @@ public class H2Database {
         ResultSet res = statement.executeQuery(String.format("SELECT * FROM User WHERE Username = '%s';", username));
         List < User > ret = new ArrayList<>();
         while(res.next())
-            ret.add(new User(res.getInt("UID"), res.getString("Username"), res.getString("Password_sha256"), res.getShort("Sex")));
+            ret.add(new User(res.getInt("UID"), res.getString("Username"), res.getString("Password_sha256")));
         return ret.size() >= 1;
     }
     public static User SelectUserByUsername(String username) throws Exception {
@@ -61,7 +61,7 @@ public class H2Database {
         ResultSet res = statement.executeQuery(String.format("SELECT * FROM User WHERE Username = '%s';", username));
         List < User > ret = new ArrayList<>();
         while(res.next())
-            ret.add(new User(res.getInt("UID"), res.getString("Username"), res.getString("Password_sha256"), res.getShort("Sex")));
+            ret.add(new User(res.getInt("UID"), res.getString("Username"), res.getString("Password_sha256")));
         return ret.get(0);
     }
 }

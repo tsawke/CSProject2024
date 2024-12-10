@@ -3,13 +3,14 @@ package com.csproject;
 import java.util.List;
 
 public class User {
+    public static User currentUser;
+
     public static final int baseUID = 10000000;
     private static int playerCnt;
 
     private int UID;
     private String Username;
     private String Password_sha256;
-    private short Sex;
 
     public static void InitUsers() throws Exception{
         List < User > users = H2Database.GetUsers();
@@ -45,26 +46,18 @@ public class User {
         Password_sha256 = password_sha256;
     }
 
-    public short getSex() {
-        return Sex;
-    }
-
-    public void setSex(short sex) {
-        Sex = sex;
-    }
 
     public void Describe() {
-        System.err.printf("User ID = %d, Name = %s, PWD = %s, Sex = %d\n", this.UID, this.Username, this.Password_sha256, this.Sex);
+        System.err.printf("User ID = %d, Name = %s, PWD = %s\n", this.UID, this.Username, this.Password_sha256);
     }
 
-    public User(int UID, String Username, String Password_sha256, short Sex) throws Exception{
+    public User(int UID, String Username, String Password_sha256) throws Exception{
         // Settings.GetProperties();
         // Settings.setPlayerCnt(Settings.getPlayerCnt() + 1);
         // this.UID = Settings.baseUID + Settings.getPlayerCnt();
         this.UID = UID;
         this.Username = Username;
         this.Password_sha256 = Password_sha256;
-        this.Sex = Sex;
         // Settings.SetProperties();
     }
 }
