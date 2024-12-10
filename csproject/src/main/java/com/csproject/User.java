@@ -1,27 +1,29 @@
 package com.csproject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    public static List < User > users = new ArrayList<>();
+    
     public static User currentUser;
 
     public static final int baseUID = 10000000;
-    private static int playerCnt;
+    // private static int playerCnt;
 
     private int UID;
     private String Username;
     private String Password_sha256;
 
     public static void InitUsers() throws Exception{
-        List < User > users = H2Database.GetUsers();
-        playerCnt = users.size();
+        users = H2Database.GetUsers();
+        // playerCnt = users.size();
         // System.out.printf("Current size = %d\n", users.size());
-        Main.setUsers(users);
     }
 
-    public static int GetAndUpdatePlayerCnt() {
-        return ++playerCnt;
-    }
+    // public static int GetAndUpdatePlayerCnt() {
+    //     return ++playerCnt;
+    // }
     public int getUID() {
         return UID;
     }
@@ -48,7 +50,11 @@ public class User {
 
 
     public void Describe() {
-        System.err.printf("User ID = %d, Name = %s, PWD = %s\n", this.UID, this.Username, this.Password_sha256);
+        System.err.printf("User ID = %d, Name = %s, PWD_SHA256 = %s\n", this.UID, this.Username, this.Password_sha256);
+    }
+
+    public static void DescribeAll() {
+        users.stream().forEach(u -> u.Describe());
     }
 
     public User(int UID, String Username, String Password_sha256) throws Exception{

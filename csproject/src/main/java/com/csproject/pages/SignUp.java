@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.csproject.Archive;
 import com.csproject.BeautifyUtils;
 import com.csproject.EncryptUtils;
 import com.csproject.H2Database;
@@ -30,11 +31,12 @@ public class SignUp {
         if(H2Database.IfExistUserByUsername(username))return 3;
         H2Database.InsertUser(
             new User(
-                H2Database.GetUsers().size() + 1,
+                User.baseUID + H2Database.GetUsers().size() + 1,
                 username,
                 EncryptUtils.sha256(password_plain)
             )
         );
+        Archive.CreateDefaultArchiveByID(H2Database.SelectUserByUsername(username).getUID());
         return 0;
     }
 

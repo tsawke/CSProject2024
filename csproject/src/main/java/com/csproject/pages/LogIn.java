@@ -32,7 +32,7 @@ public class LogIn {
         )return 1;
         User currentUser = H2Database.SelectUserByUsername(username);
         String password_sha256 = EncryptUtils.sha256(password_plain);
-        if(currentUser.getPassword_sha256().equals(password_sha256))return 2;
+        if(!currentUser.getPassword_sha256().equals(password_sha256))return 2;
         User.currentUser = currentUser;
         return 0;
     }

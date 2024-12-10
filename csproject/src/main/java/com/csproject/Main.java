@@ -1,25 +1,26 @@
 package com.csproject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.csproject.pages.Index;
 
 public class Main {
-    private static List<User> users = new ArrayList<>();
+    
 
 
 
     public static void main(String[] args) throws Exception {
-        Archive.CreateDefaultArchiveByID(1);
+        // Archive.CreateDefaultArchiveByID(1);
 
         // H2Database.CreateDefaultTables();
         User.InitUsers();
-        H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(), "Test", "pwd"));
+        User.DescribeAll();
+        // H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(), "Test", "pwd"));
         // jMEMain.main(args);
-        Index.CreateAndShowWindow();
+        // Index.CreateAndShowWindow();
         // ErrorDialog.CreateAndShowDialog(Index.frame, "Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.");
         
+        User.currentUser = H2Database.SelectUserByUsername("Test");
+        // Archive.CreateDefaultArchiveByID(User.currentUser.getUID());
+        Index.CreateAndShowWindow();
 
         // // LogIn.CreateAndShowWindow();
 
@@ -35,13 +36,5 @@ public class Main {
         // System.out.println("Hello world!");
         // //Index.CreateAndShowWindow();
         System.out.println("Complete!");
-    }
-
-    public static List<User> getUsers() {
-        return users;
-    }
-
-    public static void setUsers(List<User> users) {
-        Main.users = users;
     }
 }

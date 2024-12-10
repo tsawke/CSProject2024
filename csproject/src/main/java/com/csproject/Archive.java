@@ -35,7 +35,7 @@ public class Archive {
         Properties properties = new Properties();
         properties.load(new FileInputStream(filename));
         OutputStream out = new FileOutputStream(filename);
-        // properties.setProperty("playerCnt", Integer.toString(playerCnt));
+        properties.setProperty("currentLevel", ((Integer)mapID).toString());
         IntStream.range(1, m.getHeight() + 1).forEach(
             i -> {
                 IntStream.range(1, m.getWidth() + 1).forEach(
@@ -48,5 +48,23 @@ public class Archive {
         
         properties.store(out, "Archive of user " + id); 
         out.close();
+    }
+    public static void LoadArchiveByID(int id, GameSystem gameSystem) throws Exception {
+        final String filename = "./csproject/target/archives/" + id + ".properties";
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(filename));
+        
+        // properties.setProperty("playerCnt", Integer.toString(playerCnt));
+        int mapID = Integer.parseInt(properties.getProperty("currentLevel"));
+        GameMap m = gameSystem.getCurrentMap();
+        IntStream.range(1, m.getHeight() + 1).forEach(
+            i -> {
+                IntStream.range(1, m.getWidth() + 1).forEach(
+                    j -> {
+                        m.SetMapByIndex(i, j, Integer.parseInt(properties.getProperty(String.format("map2D_%d.%d.%d", mapID, i, j))));
+                    }
+                );
+            }
+        );
     }
 }

@@ -41,6 +41,12 @@ public class GameSystem {
     private GameMap currentMap;
     private Player player;
 
+    public GameMap getCurrentMap() {
+        return currentMap;
+    }
+    public void setCurrentMap(GameMap currentMap) {
+        this.currentMap = currentMap;
+    }
     public static boolean isGuest = false;
 
     private static int mapIndex;
@@ -79,7 +85,7 @@ public class GameSystem {
         this.currentMap = this.maps.get(mapIndex);
         for(int i = 1; i <= this.currentMap.getHeight(); ++i)
             for(int j = 1; j <= this.currentMap.getWidth(); ++j)
-                if(this.currentMap.GetMapByIndex(i, j) == 4)
+                if(this.currentMap.GetMapByIndex(i, j) == 4 || this.currentMap.GetMapByIndex(i, j) == 5)
                     this.player = new Player(i, j);
         if(this.player == null){
             System.err.println("Building map failed! #Map without player.");
@@ -294,6 +300,15 @@ public class GameSystem {
                         }
                     }
                     // TestShowcase(field);
+                    IntStream.range(1, currentMap.getHeight() + 1).forEach(
+                        i -> {
+                            IntStream.range(1, currentMap.getWidth() + 1).forEach(
+                                j -> {
+                                    currentMap.SetMapByIndex(i, j, field[i][j].type.ConvertToInt());
+                                }
+                            );
+                        }
+                    );
                     try {
                         Archive.SetArchiveByID(User.currentUser.getUID(), mapIndex, currentMap);
                     } catch (Exception e1) {}

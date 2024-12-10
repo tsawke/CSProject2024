@@ -23,4 +23,17 @@ public enum FieldType {
     public void setColor(Color color) {
         this.color = color;
     }
+
+    public int ConvertToInt() {
+        switch(this){
+            case Empty -> {return 0;}
+            case Blocked -> {return 1;}
+            case Box -> {return 2;}
+            case Target -> {return 3;}
+            case Player -> {return 4;}
+            case TargetWithPlayer -> {return 5;}
+            case TargetWithBox -> {return 6;}
+            default -> {return -1;}
+        }
+    }
 }

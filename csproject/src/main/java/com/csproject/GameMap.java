@@ -67,6 +67,9 @@ public class GameMap {
     public int GetMapByIndex(int x, int y) {
         return this.map[x][y];
     }
+    public void SetMapByIndex(int x, int y, int type) {
+        this.map[x][y] = type;
+    }
 
     public void setMap(int[][] map) {
         this.map = map;

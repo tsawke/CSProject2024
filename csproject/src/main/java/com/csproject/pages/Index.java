@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.csproject.Archive;
 import com.csproject.BeautifyUtils;
 import com.csproject.GameSystem;
 import com.csproject.User;
@@ -63,12 +64,16 @@ public class Index {
             loadArchive.getRight().setBorder(BeautifyUtils.defaultGrayBorder);
         } else {
             loadArchive.getRight().addActionListener((e) -> {
-                System.out.println("Press Button.");
+                GameSystem gameSystem = new GameSystem(1);
+                try {
+                    Archive.LoadArchiveByID(User.currentUser.getUID(), gameSystem);
+                } catch (Exception e1) {}
+                gameSystem.CreateAndShowWindow();
             });
         }
 
         newGame.getRight().addActionListener((e) -> {
-            System.out.println("Press Button.");
+            
             // ChooseMap.CreateAndShowWindow();
         });
 
