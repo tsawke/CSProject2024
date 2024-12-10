@@ -113,12 +113,14 @@ public class LogIn {
         // usernameTextField.setText("6-20 digits, only letters and digits are available");
 
         // usernameTextField.addFocusListener(
-        //     new FocusListener() {
-        //         public void focusGained(FocusEvent e) {
+        //     // new FocusListener() {
+        //     //     public void focusGained(FocusEvent e) {
 
-        //         }
-        //     };
-        // );
+        //     //     }
+    
+        //     // };
+        //     e->{}
+        //     );
 
         JPanel passwordPanel = CreateDefaultTextFieldWithLable("Password: ");
         
@@ -142,7 +144,8 @@ public class LogIn {
 
         JPanel buttonPanel = new JPanel();
         //TODO Why PreferredSize works, but Size doesn't?
-        buttonPanel.setPreferredSize(new Dimension(600, 80));
+        buttonPanel.setSize(600, 80);
+        // buttonPanel.setPreferredSize(new Dimension(600, 80));
         buttonPanel.setLayout(new GridLayout(1, 3, 30, 20));
         buttonPanel.add(login);
         buttonPanel.add(signup);

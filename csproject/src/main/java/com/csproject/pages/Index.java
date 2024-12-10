@@ -29,7 +29,7 @@ public class Index {
         return Pair.of(buttonPanel, button);
     }
 
-    public static void CreateAndShowWindow() {
+    public static void CreateAndShowWindow() throws Exception {
         FlatLightLaf.setup();
 
         frame = new JFrame("Sokoban Game");
