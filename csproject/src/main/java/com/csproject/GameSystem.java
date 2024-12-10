@@ -3,8 +3,6 @@ package com.csproject;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.IntStream;
 
 import javax.swing.JFrame;
@@ -59,7 +57,7 @@ public class GameSystem {
     }
     public GameSystem(int mapIndex) {
         this.mapIndex = mapIndex;
-        this.currentMap = this.maps.get(mapIndex);
+        this.currentMap = GameMap.maps.get(mapIndex);
         for(int i = 1; i <= this.currentMap.getHeight(); ++i)
             for(int j = 1; j <= this.currentMap.getWidth(); ++j)
                 if(this.currentMap.GetMapByIndex(i, j) == 4 || this.currentMap.GetMapByIndex(i, j) == 5)

@@ -73,7 +73,7 @@ public class SceneAppState extends BaseAppState {
         this.cube.setCollisionShape(boxShape);
         cube.setMass(2);
         
-        GameMap currentMap = GameSystem.maps.get(jMEMain.mapIndex);
+        GameMap currentMap = GameMap.maps.get(jMEMain.mapIndex);
          IntStream.range(1, currentMap.getHeight() + 1).forEach(
             i -> {
                 IntStream.range(1, currentMap.getWidth() + 1).forEach(

@@ -1,29 +1,22 @@
 package com.csproject.pages;
 
-import java.awt.*;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.IntStream;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.csproject.FieldType;
-import com.csproject.GameMap;
-import com.csproject.Player;
 
 public class ChooseMap extends Index {
-
-    // TODO
-    // 调整label位置和字号大小
-    // 学习如何让label可点击
-    // 学习如何预留插入图片的位置
 
     private class Field {
         public JPanel panel;
@@ -42,187 +35,108 @@ public class ChooseMap extends Index {
 
         JPanel[] MapPanel = new JPanel[5];
 
-        JFrame frame = new JFrame("Choose Map!"); // 创建Choose Map窗口
+        JFrame frame = new JFrame("Choose Map");
         frame.setSize(1920, 1080);
 
-        // 创建BorderLayout窗口管理器，用于存放标题
         frame.setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
         panel.setBackground(Color.gray);
 
-        // 设置标题
-        JLabel title = new JLabel("Choose Map!");
+        JLabel title = new JLabel("Choose Map");
         title.setFont(new Font("Arial", Font.PLAIN, 80));
 
         panel.add(title);
 
         Container content = frame.getContentPane();
         content.add(panel, BorderLayout.NORTH);
+    
+    }
 
         
-        GameMap Map1 = new GameMap(5, 6);
-        Map1.maps = Arrays.asList(
-            new GameMap(0, 0),
-            new GameMap(5, 6,
-                new int[][]{
-                    {-1, -1, -1, -1, -1, -1, -1},
-                    {-1, 1, 1, 1, 1, 1, 1},
-                    {-1, 1, 4, 0, 0, 0, 1},
-                    {-1, 1, 0, 0, 2, 3, 1},
-                    {-1, 1, 0, 3, 2, 0, 1},
-                    {-1, 1, 1, 1, 1, 1, 1}
-                }
-            )
-        );
-
-        GameMap Map2 = new GameMap(5, 6);
-        Map2.maps = Arrays.asList(
-            new GameMap(0, 0),
-            new GameMap(6, 7,
-                new int[][]{
-                    {-1, -1, -1, -1, -1, -1, -1, -1},
-                    {-1, 1, 1, 1, 1, 1, 1, -1},
-                    {-1, 1, 4, 0, 0, 0, 1, 1},
-                    {-1, 1, 0, 2, 2, 0, 0, 1},
-                    {-1, 1, 0, 1, 3, 0, 3, 1},
-                    {-1, 1, 0, 0, 0, 0, 0, 1},
-                    {-1, 1, 1, 1, 1, 1, 1, 1}
-                }
-            )
-        );
-
-        GameMap Map3 = new GameMap(5, 6);
-        Map3.maps = Arrays.asList(
-            new GameMap(0, 0),
-            new GameMap(7, 7,
-                new int[][]{
-                    {-1, -1, -1, -1, -1, -1, -1, -1},
-                    {-1, -1, -1, 1, 1, 1, 1, -1},
-                    {-1, 1, 1, 1, 0, 0, 1, -1},
-                    {-1, 1, 4, 0, 3, 2, 1, 1},
-                    {-1, 1, 0, 0, 0, 2, 0, 1},
-                    {-1, 1, 0, 1, 3, 0, 0, 1},
-                    {-1, 1, 0, 0, 0, 0, 0, 1},
-                    {-1, 1, 1, 1, 1, 1, 1, 1}
-                }
-            )
-        );
-
-        GameMap Map4 = new GameMap(5, 6);
-        Map4.maps = Arrays.asList(
-            new GameMap(0, 0),
-            new GameMap(7, 7,
-                new int[][]{
-                    {-1, -1, -1, -1, -1, -1, -1, -1},
-                    {-1, -1, 1, 1, 1, 1, 1, -1},
-                    {-1, 1, 1, 4, 0, 0, 1, 1},
-                    {-1, 1, 0, 0, 1, 0, 0, 1},
-                    {-1, 1, 0, 2, 6, 2, 0, 1},
-                    {-1, 1, 0, 0, 3, 0, 0, 1},
-                    {-1, 1, 1, 0, 3, 0, 1, 1},
-                    {-1, 1, 1, 1, 1, 1, 1, 1}
-                }
-            )
-        );
-
-        GameMap Map5 = new GameMap(5, 6);
-        Map5.maps = Arrays.asList(
-            new GameMap(0, 0),
-            new GameMap(6, 8,
-                new int[][]{
-                    {-1, -1, -1, -1, -1, -1, -1, -1, -1},
-                    {-1, 1, 1, 1, 1, 1, 1, -1, -1},
-                    {-1, 1, 0, 0, 0, 0, 1, 1, 1},
-                    {-1, 1, 0, 0, 0, 3, 3, 0, 1},
-                    {-1, 1, 0, 2, 2, 2, 4, 0, 1},
-                    {-1, 1, 0, 0, 1, 0, 3, 0, 1},
-                    {-1, 1, 1, 1, 1, 1, 1, 1, 1},
-                }
-            )
-        );
-
-
-        JPanel Map1Panel = new JPanel(new GridLayout(Map1.getHeight(), Map1.getWidth(), 10, 10));
-        Field[][] field1 = new Field[Map1.getHeight() + 1][Map1.getWidth() + 1];
         
-        IntStream.range(1, Map1.getHeight() + 1).forEach(
-             i -> {
-                 IntStream.range(1, Map1.getWidth() + 1).forEach(
-                     j -> {
-                         field1[i][j] = new Field(FieldType.values()[Map1.GetMapByIndex(i, j)]);
-                         Map1Panel.add(field1[i][j].panel);
-                     }
-                 );
-             }
-         );
-         frame.add(Map1Panel);
-         MapPanel[0] = Map1Panel;
 
-         JPanel Map2Panel = new JPanel(new GridLayout(Map2.getHeight(), Map2.getWidth(), 10, 10));
-        Field[][] field2 = new Field[Map2.getHeight() + 1][Map2.getWidth() + 1];
-        
-        IntStream.range(1, Map2.getHeight() + 1).forEach(
-             i -> {
-                 IntStream.range(1, Map2.getWidth() + 1).forEach(
-                     j -> {
-                         field2[i][j] = new Field(FieldType.values()[Map1.GetMapByIndex(i, j)]);
-                         Map2Panel.add(field2[i][j].panel);
-                     }
-                 );
-             }
-         );
-         frame.add(Map2Panel);
-         MapPanel[1] = Map2Panel;
 
-         JPanel Map3Panel = new JPanel(new GridLayout(Map3.getHeight(), Map3.getWidth(), 10, 10));
-        Field[][] field3 = new Field[Map3.getHeight() + 1][Map3.getWidth() + 1];
+    //     JPanel Map1Panel = new JPanel(new GridLayout(Map1.getHeight(), Map1.getWidth(), 10, 10));
+    //     Field[][] field1 = new Field[Map1.getHeight() + 1][Map1.getWidth() + 1];
         
-        IntStream.range(1, Map3.getHeight() + 1).forEach(
-             i -> {
-                 IntStream.range(1, Map3.getWidth() + 1).forEach(
-                     j -> {
-                         field3[i][j] = new Field(FieldType.values()[Map1.GetMapByIndex(i, j)]);
-                         Map3Panel.add(field3[i][j].panel);
-                     }
-                 );
-             }
-         );
-         frame.add(Map3Panel);
-         MapPanel[2] = Map3Panel;
+    //     IntStream.range(1, Map1.getHeight() + 1).forEach(
+    //          i -> {
+    //              IntStream.range(1, Map1.getWidth() + 1).forEach(
+    //                  j -> {
+    //                      field1[i][j] = new Field(FieldType.values()[Map1.GetMapByIndex(i, j)]);
+    //                      Map1Panel.add(field1[i][j].panel);
+    //                  }
+    //              );
+    //          }
+    //      );
+    //      frame.add(Map1Panel);
+    //      MapPanel[0] = Map1Panel;
 
-         JPanel Map4Panel = new JPanel(new GridLayout(Map4.getHeight(), Map4.getWidth(), 10, 10));
-        Field[][] field4 = new Field[Map4.getHeight() + 1][Map4.getWidth() + 1];
+    //      JPanel Map2Panel = new JPanel(new GridLayout(Map2.getHeight(), Map2.getWidth(), 10, 10));
+    //     Field[][] field2 = new Field[Map2.getHeight() + 1][Map2.getWidth() + 1];
         
-        IntStream.range(1, Map4.getHeight() + 1).forEach(
-             i -> {
-                 IntStream.range(1, Map4.getWidth() + 1).forEach(
-                     j -> {
-                         field4[i][j] = new Field(FieldType.values()[Map1.GetMapByIndex(i, j)]);
-                         Map4Panel.add(field4[i][j].panel);
-                     }
-                 );
-             }
-         );
-         frame.add(Map4Panel);
-         MapPanel[3] = Map4Panel;
+    //     IntStream.range(1, Map2.getHeight() + 1).forEach(
+    //          i -> {
+    //              IntStream.range(1, Map2.getWidth() + 1).forEach(
+    //                  j -> {
+    //                      field2[i][j] = new Field(FieldType.values()[Map1.GetMapByIndex(i, j)]);
+    //                      Map2Panel.add(field2[i][j].panel);
+    //                  }
+    //              );
+    //          }
+    //      );
+    //      frame.add(Map2Panel);
+    //      MapPanel[1] = Map2Panel;
 
-         JPanel Map5Panel = new JPanel(new GridLayout(Map5.getHeight(), Map5.getWidth(), 10, 10));
-        Field[][] field5 = new Field[Map5.getHeight() + 1][Map5.getWidth() + 1];
+    //      JPanel Map3Panel = new JPanel(new GridLayout(Map3.getHeight(), Map3.getWidth(), 10, 10));
+    //     Field[][] field3 = new Field[Map3.getHeight() + 1][Map3.getWidth() + 1];
         
-        IntStream.range(1, Map5.getHeight() + 1).forEach(
-             i -> {
-                 IntStream.range(1, Map5.getWidth() + 1).forEach(
-                     j -> {
-                         field5[i][j] = new Field(FieldType.values()[Map1.GetMapByIndex(i, j)]);
-                         Map5Panel.add(field5[i][j].panel);
-                     }
-                 );
-             }
-         );
-         frame.add(Map5Panel);
-         MapPanel[4] = Map5Panel;
-     }
+    //     IntStream.range(1, Map3.getHeight() + 1).forEach(
+    //          i -> {
+    //              IntStream.range(1, Map3.getWidth() + 1).forEach(
+    //                  j -> {
+    //                      field3[i][j] = new Field(FieldType.values()[Map1.GetMapByIndex(i, j)]);
+    //                      Map3Panel.add(field3[i][j].panel);
+    //                  }
+    //              );
+    //          }
+    //      );
+    //      frame.add(Map3Panel);
+    //      MapPanel[2] = Map3Panel;
+
+    //      JPanel Map4Panel = new JPanel(new GridLayout(Map4.getHeight(), Map4.getWidth(), 10, 10));
+    //     Field[][] field4 = new Field[Map4.getHeight() + 1][Map4.getWidth() + 1];
+        
+    //     IntStream.range(1, Map4.getHeight() + 1).forEach(
+    //          i -> {
+    //              IntStream.range(1, Map4.getWidth() + 1).forEach(
+    //                  j -> {
+    //                      field4[i][j] = new Field(FieldType.values()[Map1.GetMapByIndex(i, j)]);
+    //                      Map4Panel.add(field4[i][j].panel);
+    //                  }
+    //              );
+    //          }
+    //      );
+    //      frame.add(Map4Panel);
+    //      MapPanel[3] = Map4Panel;
+
+    //      JPanel Map5Panel = new JPanel(new GridLayout(Map5.getHeight(), Map5.getWidth(), 10, 10));
+    //     Field[][] field5 = new Field[Map5.getHeight() + 1][Map5.getWidth() + 1];
+        
+    //     IntStream.range(1, Map5.getHeight() + 1).forEach(
+    //          i -> {
+    //              IntStream.range(1, Map5.getWidth() + 1).forEach(
+    //                  j -> {
+    //                      field5[i][j] = new Field(FieldType.values()[Map1.GetMapByIndex(i, j)]);
+    //                      Map5Panel.add(field5[i][j].panel);
+    //                  }
+    //              );
+    //          }
+    //      );
+    //      frame.add(Map5Panel);
+    //      MapPanel[4] = Map5Panel;
+    //  }
 
         // 获取地图图片
         //ImageIcon MapPicture1 = new ImageIcon("D:\\CSProject2024\\resources\\TempMap.png");
