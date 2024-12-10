@@ -11,9 +11,11 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
+        
+
         // H2Database.CreateDefaultTables();
         User.InitUsers();
-        H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(),"Test", "pwd"));
+        H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(), "Test", "pwd"));
         // jMEMain.main(args);
         Index.CreateAndShowWindow();
         // ErrorDialog.CreateAndShowDialog(Index.frame, "Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.");
