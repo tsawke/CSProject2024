@@ -1,5 +1,7 @@
 package com.csproject;
 
+import java.util.List;
+
 public class GameMap {
     private int height;
     private int width;
@@ -16,7 +18,8 @@ public class GameMap {
     5 <=> TargetWithPlayer
     6 <=> TargetWithBox
     */
-    private int[][] map;
+    int[][] map;
+    public List<GameMap> maps;
 
     // public void InitPlayer() {
     //     for(int i = 1; i <= height; ++i)

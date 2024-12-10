@@ -47,7 +47,7 @@ public class LogIn extends Index{
         JButton visit = CreateDefaultMenuButton("Visitor Mode");
         JButton signup = CreateDefaultMenuButton("Sign Up");
 
-        login.addActionListener(l);
+        //login.addActionListener(l);
 
         // Pair<JPanel, JButton> LogIn = createDefaultMenuButtonAndPanel("Log In");
 
