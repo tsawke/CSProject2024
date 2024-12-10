@@ -38,3 +38,4 @@
 - Java Swing 教程 https://www.xinbaoku.com/archive/04cEFxC6.html
 - 配置Maven教程（使用maven3.9.9） https://blog.csdn.net/u012660464/article/details/114113349
 - SQL字段类型汇总 https://blog.csdn.net/weixin_45654582/article/details/119157403
+- Git强制覆盖本地仓库 https://deepinout.com/git/git-questions/447_git_git_force_a_pull_to_overwrite_local_changes.html

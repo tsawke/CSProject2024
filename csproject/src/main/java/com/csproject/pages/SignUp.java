@@ -1,5 +1,12 @@
 package com.csproject.pages;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,7 +21,6 @@ import com.csproject.BeautifyUtils;
 import com.csproject.EncryptUtils;
 import com.csproject.H2Database;
 import com.csproject.User;
-import com.jogamp.nativewindow.util.Dimension;
 
 public class SignUp {
     public void SignUpUser(String username, String password_plain, short sex) throws Exception{
@@ -27,6 +33,29 @@ public class SignUp {
             )
         );
     }
+
+    public static JButton CreateDefaultMenuButton(String Name) {
+        JButton button = new JButton(Name);
+        button.setFont(new Font("Arial", Font.PLAIN, 40));
+        return button;
+    }
+    public static JPanel CreateDefaultTextFieldWithLable(String Name) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+
+        JLabel lable = new JLabel(Name);
+        lable.setFont(new Font("Arial", Font.PLAIN, 35));
+
+        JTextField textField = new JTextField(30);
+        textField.setPreferredSize(new Dimension(30, 30));
+        textField.setBorder(BeautifyUtils.defaultGrayBorder);
+
+        panel.add(lable);
+        panel.add(textField);
+
+        return panel;
+    }
+
     //TODO
     private static JTextField usernameTextField = new JTextField();
     private static JTextField passwordTextField = new JTextField();
@@ -34,7 +63,7 @@ public class SignUp {
     private static JLabel passwordLabel = new JLabel();
     
     public static void CreateAndShowDialog() {
-        JDialog dialog = new JDialog(Index.frame, "Log In");
+        JDialog dialog = new JDialog(Index.frame, "SignUp");
         dialog.setModal(true);
         dialog.setSize(800, 400);
         dialog.setLocationRelativeTo(Index.frame);
@@ -151,9 +180,9 @@ public class SignUp {
             e -> {
                 String username = usernameTextField.getText();
                 String password_plain = passwordTextField.getText();
-                switch(LogInUser(username, password_plain)) {
+                // switch(LogInUser(username, password_plain)) {
                     
-                }
+                // }
             }
         );
 

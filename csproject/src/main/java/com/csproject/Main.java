@@ -3,15 +3,15 @@ package com.csproject;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.csproject.pages.Index;
-
 public class Main {
     private static List<User> users = new ArrayList<>();
 
 
 
     public static void main(String[] args) throws Exception {
-        Index.CreateAndShowWindow();
+        jMEMain.main(args);
+        // Index.CreateAndShowWindow();
+        // ErrorDialog.CreateAndShowDialog(Index.frame, "Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.");
         // H2Database.CreateDefaultTables();
         // User.InitUsers();
         // H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(),

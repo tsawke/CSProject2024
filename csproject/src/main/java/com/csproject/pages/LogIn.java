@@ -15,14 +15,26 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import com.csproject.BeautifyUtils;
+import com.csproject.EncryptUtils;
+import com.csproject.H2Database;
+import com.csproject.User;
+import com.csproject.dependencies.Validator;
 
 public class LogIn {
+    public static User user;
     public static int LogInUser(String username, String password_plain) throws Exception {
-        if(H2Database.IfExistUserByUsername(username))return 1;
-        
+        if(
+            !H2Database.IfExistUserByUsername(username) ||
+            !Validator.isUsername(username) ||
+            !Validator.isPassword(password_plain)
+        )return 1;
+        User currentUser = H2Database.SelectUserByUsername(username);
+        String password_sha256 = EncryptUtils.sha256(password_plain);
+        if(currentUser.getPassword_sha256().equals(password_sha256))return 2;
+        user = currentUser;
+        return 0;
     }
     public static JButton CreateDefaultMenuButton(String Name) {
         JButton button = new JButton(Name);
@@ -51,7 +63,7 @@ public class LogIn {
     private static JLabel usernameLabel = new JLabel();
     private static JLabel passwordLabel = new JLabel();
     
-    public static void CreateAndShowDialog() {
+    public static void CreateAndShowDialog() throws Exception {
         JDialog dialog = new JDialog(Index.frame, "Log In");
         dialog.setModal(true);
         dialog.setSize(800, 400);
@@ -169,9 +181,21 @@ public class LogIn {
             e -> {
                 String username = usernameTextField.getText();
                 String password_plain = passwordTextField.getText();
-                switch(LogInUser(username, password_plain)) {
-
-                }
+            
+                try {
+                    switch(LogInUser(username, password_plain)) {
+                        case 0 -> {
+                            dialog.dispose();
+                        }
+                        case 1 -> {
+                            ErrorDialog.CreateAndShowDialog(dialog, "Username doesn't exist!");
+                        }
+                        case 2 -> {
+                            ErrorDialog.CreateAndShowDialog(dialog, "Password doesn't match the username!");
+                        }
+                        default -> {}
+                    }
+                } catch (Exception e1) {}
             }
         );
 
