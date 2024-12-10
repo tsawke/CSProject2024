@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.stream.IntStream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.csproject.Archive;
 import com.csproject.BeautifyUtils;
+import com.csproject.GameMap;
 import com.csproject.GameSystem;
 import com.csproject.User;
 import com.csproject.dependencies.VerticalFlowLayout;
@@ -73,7 +75,17 @@ public class Index {
         }
 
         newGame.getRight().addActionListener((e) -> {
-            
+            IntStream.range(1, 5 + 1).forEach(
+                i -> {
+                    try {
+                        ChooseMap.CreateIcons(GameMap.maps.get(i), i);
+                    } catch (Exception e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                }
+            );
+                
             // ChooseMap.CreateAndShowWindow();
         });
 

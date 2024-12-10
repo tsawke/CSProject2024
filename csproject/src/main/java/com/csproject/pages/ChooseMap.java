@@ -5,8 +5,12 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,10 +19,12 @@ import javax.swing.JPanel;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.csproject.FieldType;
+import com.csproject.GameMap;
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class ChooseMap extends Index {
 
-    private class Field {
+    private static class Field {
         public JPanel panel;
         public FieldType type;
 
@@ -29,6 +35,29 @@ public class ChooseMap extends Index {
         }
     }
 
+    // private static JPanel mainPanel;
+    // private static Field[][] field = new Field[20][20];
+    public static void CreateIcons(GameMap currentMap, int idx) throws Exception {
+        FlatLightLaf.setup();
+
+        JFrame frame = new JFrame();
+        frame.setSize(500, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel mainPanel = new JPanel(new GridLayout(currentMap.getHeight(), currentMap.getWidth(), 10, 10));
+        mainPanel.setSize(new Dimension(500, 500));
+        // field = new Field[currentMap.getHeight() + 1][currentMap.getWidth() + 1];
+        for(int i = 1; i <= currentMap.getHeight(); ++i)
+            for(int j = 1; j <= currentMap.getWidth(); ++j)
+                mainPanel.add((new Field(FieldType.values()[currentMap.GetMapByIndex(i, j)])).panel);
+        frame.add(mainPanel);
+        frame.setVisible(true);
+        BufferedImage img = new  BufferedImage(mainPanel.getWidth(), mainPanel.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+        Graphics2D g2d = img.createGraphics();
+        mainPanel.paintAll(g2d);
+        ImageIO.write(img, "png", new File("./csproject/src/main/resources/Icons/map" + idx + ".png"));
+        frame.dispose();
+    }
    
 
     public static void CreateAndShowWindow() {

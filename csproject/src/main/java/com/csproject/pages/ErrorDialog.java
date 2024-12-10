@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.Font;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -15,6 +16,7 @@ import javax.swing.SwingConstants;
 public class ErrorDialog {
     public static void CreateAndShowDialog(Component father, String text) {
         JDialog dialog = new JDialog(Index.frame, "Error!");
+        dialog.setDefaultCloseOperation(JFrame.ERROR);
         dialog.setModal(true);
         dialog.setSize(600, 300);
         dialog.setLocationRelativeTo(father);
