@@ -13,7 +13,7 @@ public class Archive {
         OutputStream out = new FileOutputStream("./csproject/target/archives/" + id + ".properties");
         // properties.setProperty("playerCnt", Integer.toString(playerCnt));
         properties.setProperty("currentLevel", "1");
-        GameSystem.maps.stream()
+        GameMap.maps.stream()
             .forEach(m -> {
                 IntStream.range(1, m.getHeight() + 1).forEach(
                     i -> {
@@ -56,6 +56,7 @@ public class Archive {
         
         // properties.setProperty("playerCnt", Integer.toString(playerCnt));
         int mapID = Integer.parseInt(properties.getProperty("currentLevel"));
+        gameSystem.getCurrentMap().setMap(new int[GameMap.maps.get(mapID).getHeight()][GameMap.maps.get(mapID).getWidth()]);
         GameMap m = gameSystem.getCurrentMap();
         IntStream.range(1, m.getHeight() + 1).forEach(
             i -> {

@@ -13,30 +13,7 @@ import javax.swing.JPanel;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class GameSystem {
-    public static List < GameMap > maps = Arrays.asList(
-        new GameMap(0, 0),
-        new GameMap(5, 6,
-            new int[][]{
-                {-1, -1, -1, -1, -1, -1, -1},
-                {-1, 1, 1, 1, 1, 1, 1},
-                {-1, 1, 4, 0, 0, 0, 1},
-                {-1, 1, 0, 0, 2, 3, 1},
-                {-1, 1, 0, 3, 2, 0, 1},
-                {-1, 1, 1, 1, 1, 1, 1}
-            }
-        ),
-        new GameMap(6, 7,
-            new int[][]{
-                {-1, -1, -1, -1, -1, -1, -1, -1},
-                {-1, 1, 1, 1, 1, 1, 1, 0},
-                {-1, 1, 4, 0, 0, 0, 1, 1},
-                {-1, 1, 0, 2, 2, 0, 0, 1},
-                {-1, 1, 0, 1, 3, 0, 3, 1},
-                {-1, 1, 0, 0, 0, 0, 0, 1},
-                {-1, 1, 1, 1, 1, 1, 1, 1}
-            }
-        )
-    );
+    
 
     private GameMap currentMap;
     private Player player;

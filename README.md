@@ -15,11 +15,14 @@
 - Showcase map(tsawke)
 - Player move and count steps, etc(tsawke)
 - Ranklist
-- UI
+- Archive (tsawke)
+- Basic UI
+- GameSystem Complex UI
 - 3D Game(tsawke)
 - ...
 
 ## Logs
+- 20241211 - tsawke - Complete archive.
 - 20241210 - tsawke - Create some utils and template.
 - 20241210 - tsawke - Rewrite LogIn, SignUp.
 - 20241205 - tsawke - Complete basic 3DGameSystem.

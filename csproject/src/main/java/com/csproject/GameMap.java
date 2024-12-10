@@ -1,8 +1,36 @@
 package com.csproject;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class GameMap {
+    public static final List < GameMap > maps = Arrays.asList(
+        new GameMap(0, 0),
+        new GameMap(5, 6,
+            new int[][]{
+                {-1, -1, -1, -1, -1, -1, -1},
+                {-1, 1, 1, 1, 1, 1, 1},
+                {-1, 1, 4, 0, 0, 0, 1},
+                {-1, 1, 0, 0, 2, 3, 1},
+                {-1, 1, 0, 3, 2, 0, 1},
+                {-1, 1, 1, 1, 1, 1, 1}
+            }
+        ),
+        new GameMap(6, 7,
+            new int[][]{
+                {-1, -1, -1, -1, -1, -1, -1, -1},
+                {-1, 1, 1, 1, 1, 1, 1, 0},
+                {-1, 1, 4, 0, 0, 0, 1, 1},
+                {-1, 1, 0, 2, 2, 0, 0, 1},
+                {-1, 1, 0, 1, 3, 0, 3, 1},
+                {-1, 1, 0, 0, 0, 0, 0, 1},
+                {-1, 1, 1, 1, 1, 1, 1, 1}
+            }
+        )
+    );
+
+
+
     private int height;
     private int width;
 
@@ -19,7 +47,7 @@ public class GameMap {
     6 <=> TargetWithBox
     */
     int[][] map;
-    public List<GameMap> maps;
+    // public static List < GameMap > maps;
 
     // public void InitPlayer() {
     //     for(int i = 1; i <= height; ++i)
