@@ -7,7 +7,7 @@ public class User {
     private static int playerCnt;
 
     private int UID;
-    private String Name;
+    private String Username;
     private String Password_sha256;
     private short Sex;
 
@@ -29,12 +29,12 @@ public class User {
         UID = uID;
     }
 
-    public String getName() {
-        return Name;
+    public String getUsername() {
+        return Username;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setUsername(String name) {
+        Username = name;
     }
 
     public String getPassword_sha256() {
@@ -54,15 +54,15 @@ public class User {
     }
 
     public void Describe() {
-        System.err.printf("User ID = %d, Name = %s, PWD = %s, Sex = %d\n", this.UID, this.Name, this.Password_sha256, this.Sex);
+        System.err.printf("User ID = %d, Name = %s, PWD = %s, Sex = %d\n", this.UID, this.Username, this.Password_sha256, this.Sex);
     }
 
-    public User(int UID, String Name, String Password_sha256, short Sex) throws Exception{
+    public User(int UID, String Username, String Password_sha256, short Sex) throws Exception{
         // Settings.GetProperties();
         // Settings.setPlayerCnt(Settings.getPlayerCnt() + 1);
         // this.UID = Settings.baseUID + Settings.getPlayerCnt();
         this.UID = UID;
-        this.Name = Name;
+        this.Username = Username;
         this.Password_sha256 = Password_sha256;
         this.Sex = Sex;
         // Settings.SetProperties();

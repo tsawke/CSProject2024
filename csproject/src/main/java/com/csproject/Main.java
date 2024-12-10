@@ -3,7 +3,7 @@ package com.csproject;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.csproject.pages.LogIn;
+import com.csproject.pages.Index;
 
 public class Main {
     private static List<User> users = new ArrayList<>();
@@ -11,14 +11,17 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        H2Database.CreateDefaultTables();
-        User.InitUsers();
+        // jMEMain.main(args);
+        Index.CreateAndShowWindow();
+        // ErrorDialog.CreateAndShowDialog(Index.frame, "Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.");
+        // H2Database.CreateDefaultTables();
+        // User.InitUsers();
         // H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(),
         //         "Test", "pwd", (short) 1));
 
-        LogIn.CreateAndShowWindow();
+        // // LogIn.CreateAndShowWindow();
 
-        GameSystem gameSystem = new GameSystem(1);
+        // GameSystem gameSystem = new GameSystem(1);
         // gameSystem.CreateAndShowWindow();
         
         //先显示登陆界面，并实现了Vistor功能
