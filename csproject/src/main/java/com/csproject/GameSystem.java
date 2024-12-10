@@ -43,6 +43,15 @@ public class GameSystem {
 
     public static boolean isGuest = false;
 
+    private static int mapIndex;
+
+    public static int getMapIndex() {
+        return mapIndex;
+    }
+    public static void setMapIndex(int mapIndex) {
+        GameSystem.mapIndex = mapIndex;
+    }
+
     private class Field{
         public JPanel panel;
         public FieldType type;
@@ -66,7 +75,7 @@ public class GameSystem {
         }
     }
     public GameSystem(int mapIndex) {
-        
+        this.mapIndex = mapIndex;
         this.currentMap = this.maps.get(mapIndex);
         for(int i = 1; i <= this.currentMap.getHeight(); ++i)
             for(int j = 1; j <= this.currentMap.getWidth(); ++j)
@@ -284,7 +293,10 @@ public class GameSystem {
                             }
                         }
                     }
-                    TestShowcase(field);
+                    // TestShowcase(field);
+                    try {
+                        Archive.SetArchiveByID(User.currentUser.getUID(), mapIndex, currentMap);
+                    } catch (Exception e1) {}
                 }
             }
         );

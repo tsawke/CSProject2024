@@ -1,5 +1,6 @@
 package com.csproject;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Properties;
@@ -14,19 +15,38 @@ public class Archive {
         properties.setProperty("currentLevel", "1");
         GameSystem.maps.stream()
             .forEach(m -> {
-                idx = 0;
                 IntStream.range(1, m.getHeight() + 1).forEach(
                     i -> {
                         IntStream.range(1, m.getWidth() + 1).forEach(
                             j -> {
-                                properties.setProperty(String.format("map2D_%d.%d.%d", ++idx, i, j), ((Integer)(m.GetMapByIndex(i, j))).toString());
+                                properties.setProperty(String.format("map2D_%d.%d.%d", idx, i, j), ((Integer)(m.GetMapByIndex(i, j))).toString());
                             }
                         );
                     }
                 );
+                ++idx;
             });
         
         properties.store(out, "Archive of user " + id);
+        out.close();
+    }
+    public static void SetArchiveByID(int id, int mapID, GameMap m) throws Exception {
+        final String filename = "./csproject/target/archives/" + id + ".properties";
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(filename));
+        OutputStream out = new FileOutputStream(filename);
+        // properties.setProperty("playerCnt", Integer.toString(playerCnt));
+        IntStream.range(1, m.getHeight() + 1).forEach(
+            i -> {
+                IntStream.range(1, m.getWidth() + 1).forEach(
+                    j -> {
+                        properties.setProperty(String.format("map2D_%d.%d.%d", mapID, i, j), ((Integer)(m.GetMapByIndex(i, j))).toString());
+                    }
+                );
+            }
+        );
+        
+        properties.store(out, "Archive of user " + id); 
         out.close();
     }
 }
