@@ -1,7 +1,5 @@
 package com.csproject;
 
-import com.csproject.pages.Index;
-
 public class Main {
     
 
@@ -20,12 +18,12 @@ public class Main {
         
         User.currentUser = H2Database.SelectUserByUsername("Test");
         // Archive.CreateDefaultArchiveByID(User.currentUser.getUID());
-        Index.CreateAndShowWindow();
+        // Index.CreateAndShowWindow();
 
         // // LogIn.CreateAndShowWindow();
 
-        // GameSystem gameSystem = new GameSystem(1);
-        // gameSystem.CreateAndShowWindow();
+        GameSystem gameSystem = new GameSystem(1);
+        gameSystem.CreateAndShowWindow();
         
         //先显示登陆界面，并实现了Vistor功能
         // LogIn.CreateAndShowWindow();

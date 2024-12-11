@@ -2,19 +2,25 @@ package com.csproject;
 
 import java.awt.Color;
 
-public enum FieldType {
-    Empty(Color.WHITE),
-    Blocked(Color.RED),
-    Box(Color.BLUE),
-    Target(Color.GREEN),
-    Player(Color.CYAN),
-    TargetWithPlayer(Color.DARK_GRAY),
-    TargetWithBox(Color.ORANGE);
+import javax.swing.ImageIcon;
 
-    private FieldType(Color color) {
+import com.csproject.dependencies.SwingUtil;
+
+public enum FieldType {
+    Empty(Color.WHITE, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/empty.png", false)),
+    Blocked(Color.RED, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/blocked.png", false)),
+    Box(Color.BLUE, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/basketball.png", false)),
+    Target(Color.GREEN, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/target.png", false)),
+    Player(Color.CYAN, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/player.gif", false)),
+    TargetWithPlayer(Color.DARK_GRAY, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/player.gif", false)),
+    TargetWithBox(Color.ORANGE, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/target_with_box.png", false));
+
+    private FieldType(Color color, ImageIcon icon) {
         this.color = color;
+        this.icon = icon;
     }
     private Color color;
+    private ImageIcon icon;
 
     public Color getColor() {
         return color;
@@ -22,6 +28,10 @@ public enum FieldType {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public ImageIcon getIcon() {
+        return icon;
     }
 
     public int ConvertToInt() {
