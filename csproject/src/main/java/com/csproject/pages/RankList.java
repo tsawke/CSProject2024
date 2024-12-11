@@ -1,5 +1,6 @@
 package com.csproject.pages;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,6 +11,7 @@ import java.awt.*;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.system.CallbackI.J;
 
+import com.csproject.dependencies.VerticalFlowLayout;
 import com.formdev.flatlaf.FlatLightLaf;
 
 
@@ -47,17 +49,17 @@ public class RankList {
         content.add(panel, BorderLayout.NORTH);
         
 
-        JPanel panel1 = new JPanel();
-        JPanel panel2 = new JPanel();
-        JPanel panel3 = new JPanel();
-        JPanel panel4 = new JPanel();
-        JPanel panel5 = new JPanel();
+        VerticalFlowLayout verticalLayout = new VerticalFlowLayout(10, 25);
+        // verticalLayout.setFill(false);
+        JPanel Ranks = new JPanel(verticalLayout);
+        Ranks.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+     
 
-        JLabel First = new JLabel(String.format("%-10s\t%-15s\t%d","1st", "Username", 123));
-        JLabel Second = new JLabel(String.format("%-10s\t%-15s\t%d", "2nd","Username", 123));
-        JLabel Third = new JLabel(String.format("%-10s\t%-15s\t%d", "3rd","Username", 123));
-        JLabel Fourth = new JLabel(String.format("%-10s\t%-15s\t%d","4th", "Username", 123));
-        JLabel Fifth = new JLabel(String.format("%-10s\t%-15s\t%d","5th", "Username", 123));
+        JLabel First = new JLabel(String.format("\t%-10s\t%-15s\t%d", "1st", "Username", 123),0);
+        JLabel Second = new JLabel(String.format("\t%-10s\t%-15s\t%d", "2nd", "Username", 123),0);
+        JLabel Third = new JLabel(String.format("\t%-10s\t%-15s\t%d", "3rd", "Username", 123),0);
+        JLabel Fourth = new JLabel(String.format("\t%-10s\t%-15s\t%d", "4th", "Username", 123),0);
+        JLabel Fifth = new JLabel(String.format("\t%-10s\t%-15s\t%d", "5th", "Username", 123),0);
 
         First.setFont(new Font("Arial", Font.PLAIN, 40));
         Second.setFont(new Font("Arial", Font.PLAIN, 40));
@@ -65,23 +67,33 @@ public class RankList {
         Fourth.setFont(new Font("Arial", Font.PLAIN, 40));
         Fifth.setFont(new Font("Arial", Font.PLAIN, 40));
 
-        panel1.add(First);
-        panel2.add(Second);
-        panel3.add(Third);
-        panel4.add(Fourth);
-        panel5.add(Fifth);
+        Ranks.add(First);
+        Ranks.add(Second);
+        Ranks.add(Third);
+        Ranks.add(Fourth);
+        Ranks.add(Fifth);
+        Ranks.setBackground(Color.GRAY);
 
-        panel1.setBackground(Color.WHITE);
-        panel2.setBackground(Color.WHITE);
-        panel3.setBackground(Color.WHITE);
-        panel4.setBackground(Color.WHITE);
-        panel5.setBackground(Color.WHITE);
+        
 
-        frame.add(panel1, BorderLayout.CENTER);
-        frame.add(panel2, BorderLayout.CENTER);
-        frame.add(panel3, BorderLayout.CENTER);
-        frame.add(panel4, BorderLayout.CENTER);
-        frame.add(panel5, BorderLayout.CENTER);
+        JButton Back = new JButton("Back");
+        Back.setFont(new Font("Arial", Font.PLAIN, 40));
+        Back.setPreferredSize(new Dimension(200, 50));
+        Ranks.add(Back);
+        Ranks.setBackground(Color.DARK_GRAY);
+        Back.setBackground(Color.WHITE);
+
+        content.add(Ranks, BorderLayout.CENTER);
+        
+        Back.addActionListener((e) -> {
+            try {
+                Index.CreateAndShowWindow();
+                frame.dispose();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
 
         frame.setVisible(true);
 

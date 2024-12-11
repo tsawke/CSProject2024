@@ -86,11 +86,16 @@ public class Index {
                 }
             );
                 
-            // ChooseMap.CreateAndShowWindow();
+            ChooseMap.CreateAndShowWindow();
         });
 
         rankList.getRight().addActionListener((e) -> {
             System.out.println("Press Button.");
+            try {
+                RankList.CreateAndShowWindow();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         });
 
         setting.getRight().addActionListener((e) -> {
