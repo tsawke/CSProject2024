@@ -1,5 +1,7 @@
 package com.csproject;
 
+import com.csproject.pages.ChooseMap;
+
 public class Main {
     
 
@@ -21,6 +23,9 @@ public class Main {
         // Index.CreateAndShowWindow();
 
         // // LogIn.CreateAndShowWindow();
+
+        for(int i = 1; i <= 5; ++i)
+            ChooseMap.CreateIcons(GameMap.maps.get(i), i);
 
         GameSystem gameSystem = new GameSystem(1);
         gameSystem.CreateAndShowWindow();

@@ -13,7 +13,7 @@ public enum FieldType {
     Target(Color.GREEN, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/target.png", false)),
     Player(Color.CYAN, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/player.gif", false)),
     TargetWithPlayer(Color.DARK_GRAY, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/player.gif", false)),
-    TargetWithBox(Color.ORANGE, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/target_with_box.png", false));
+    TargetWithBox(Color.GREEN, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/target_with_box.png", false));
 
     private FieldType(Color color, ImageIcon icon) {
         this.color = color;

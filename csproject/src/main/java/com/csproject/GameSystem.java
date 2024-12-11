@@ -13,8 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.csproject.pages.FrameUtil;
-import com.csproject.pages.LogIn;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class GameSystem {
@@ -124,15 +122,17 @@ public class GameSystem {
         frame.add(mainPanel);
 
         JButton resetButton = CreateDefaultMenuButton("Reset");
+        resetButton.setLocation(new Point(1001, 300));
+        frame.add(resetButton);
         
 
         /////////////////////////
 
-        restartBtn = FrameUtil.createButton(frame, "Restart", new Point(mainPanel.getWidth() + 200, 210), 80, 50);
+        // restartBtn = FrameUtil.createButton(frame, "Restart", new Point(mainPanel.getWidth() + 200, 210), 80, 50);
         // loadBtn = FrameUtil.createButton(frame, "Load", new Point(mainPanel.getWidth() + 200, 300), 80, 50);
-        BackBtn = FrameUtil.createButton(frame, "Back To Menu", new Point(mainPanel.getWidth() + 200, 390), 160, 50);
+        // BackBtn = FrameUtil.createButton(frame, "Back To Menu", new Point(mainPanel.getWidth() + 200, 390), 160, 50);
         // stepLabel = FrameUtil.createJLabel(frame, "Start", new Font("serif", Font.ITALIC, 22), new Point(mainPanel.getWidth() + 200, 70), 180, 50);
-        frame.add(restartBtn);
+        // frame.add(restartBtn);
         // frame.add(loadBtn);
         // frame.add(stepLabel);
 
@@ -358,13 +358,13 @@ public class GameSystem {
         );
     
 
-        restartBtn.addActionListener(
-                e -> {
-                    frame.dispose();
-                    GameSystem game = new GameSystem(mapIndex);
-                    game.CreateAndShowWindow();
-                }
-        );
+        // restartBtn.addActionListener(
+        //         e -> {
+        //             frame.dispose();
+        //             GameSystem game = new GameSystem(mapIndex);
+        //             game.CreateAndShowWindow();
+        //         }
+        // );
 
         // loadBtn.addActionListener(
         //         e -> {
@@ -374,18 +374,18 @@ public class GameSystem {
         //         }
         // );
 
-        BackBtn.addActionListener(
-                e -> {
-                    try {
-                        // AskForSave.CreateAndShowDialog();
-                        frame.dispose();
-                    } catch (Exception e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    }
+        // BackBtn.addActionListener(
+        //         e -> {
+        //             try {
+        //                 // AskForSave.CreateAndShowDialog();
+        //                 frame.dispose();
+        //             } catch (Exception e1) {
+        //                 // TODO Auto-generated catch block
+        //                 e1.printStackTrace();
+        //             }
                 
-                }
-        );
+        //         }
+        // );
         frame.setFocusable(true);
         frame.requestFocus();
 

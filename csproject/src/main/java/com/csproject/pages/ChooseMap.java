@@ -24,14 +24,41 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 public class ChooseMap extends Index {
 
-    private static class Field {
+    private static class Field{
         public JPanel panel;
         public FieldType type;
-
         public Field(FieldType type) {
             this.panel = new JPanel();
-            this.panel.setBackground(type.getColor());
+
             this.type = type;
+
+            JLabel label = new JLabel();
+            label.setPreferredSize(new Dimension(50, 50));
+            label.setIcon(this.type.getIcon());
+            
+            this.panel.add(label);
+            
+            this.panel.setBackground(this.type.getColor());
+            this.panel.updateUI();
+        }
+        // public void UpdateType(int type){
+        //     this.type = FieldType.values()[type];
+        //     this.panel.setBackground(this.type.getColor());
+        //     this.panel.updateUI();
+        // }
+        public void UpdateType(FieldType type){
+            this.type = type;
+
+            this.panel.removeAll();
+
+            JLabel label = new JLabel();
+            label.setPreferredSize(new Dimension(50, 50));
+            label.setIcon(this.type.getIcon());
+            
+            this.panel.add(label);
+
+            this.panel.setBackground(this.type.getColor());
+            this.panel.updateUI();
         }
     }
 
@@ -45,18 +72,28 @@ public class ChooseMap extends Index {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel mainPanel = new JPanel(new GridLayout(currentMap.getHeight(), currentMap.getWidth(), 10, 10));
-        mainPanel.setSize(new Dimension(500, 500));
+        mainPanel.setSize(new Dimension(1000, 1000));
         // field = new Field[currentMap.getHeight() + 1][currentMap.getWidth() + 1];
         for(int i = 1; i <= currentMap.getHeight(); ++i)
             for(int j = 1; j <= currentMap.getWidth(); ++j)
                 mainPanel.add((new Field(FieldType.values()[currentMap.GetMapByIndex(i, j)])).panel);
         frame.add(mainPanel);
+
+        JFrame frame2 = new JFrame();
+        frame2.setSize(500, 500);
+        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame2.setVisible(true);
+        // frame2.setAlwaysOnTop(true);
+
         frame.setVisible(true);
+
         BufferedImage img = new  BufferedImage(mainPanel.getWidth(), mainPanel.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D g2d = img.createGraphics();
         mainPanel.paintAll(g2d);
         ImageIO.write(img, "png", new File("./csproject/src/main/resources/Icons/map" + idx + ".png"));
+        Thread.sleep(200);
         frame.dispose();
+        frame2.dispose();
     }
    
 
