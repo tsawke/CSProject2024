@@ -95,6 +95,17 @@ public class GameMap {
     //     }
     // }
 
+    // @Override  
+    // public Object clone() {  
+    //     GameMap gameMap = null;  
+    //     try{  
+    //         gameMap = (GameMap)super.clone();  
+    //     }catch(CloneNotSupportedException e) {  
+    //         e.printStackTrace();  
+    //     }  
+    //     return gameMap;  
+    // }
+
     public GameMap(int height, int width) {
         this.height = height;
         this.width = width;

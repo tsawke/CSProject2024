@@ -11,7 +11,7 @@ public enum FieldType {
     Blocked(Color.RED, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/blocked.png", false)),
     Box(Color.BLUE, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/basketball.png", false)),
     Target(Color.GREEN, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/target.png", false)),
-    Player(Color.CYAN, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/player.gif", false)),
+    Player(Color.CYAN, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/player_compressed.gif", false)),
     TargetWithPlayer(Color.DARK_GRAY, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/player.gif", false)),
     TargetWithBox(Color.GREEN, SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/target_with_box.png", false));
 

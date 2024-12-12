@@ -1,5 +1,6 @@
 package com.csproject;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -13,7 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import com.formdev.flatlaf.FlatLightLaf;
+import com.ochafik.beans.BeansUtils;
 
 public class GameSystem {
     
@@ -41,13 +45,15 @@ public class GameSystem {
     private class Field{
         public JPanel panel;
         public FieldType type;
-        public Field(FieldType type) {
+        public int size;
+        public Field(FieldType type, int size) {
             this.panel = new JPanel();
+            this.size = size - 20;
 
             this.type = type;
 
             JLabel label = new JLabel();
-            label.setPreferredSize(new Dimension(100, 100));
+            label.setPreferredSize(new Dimension(this.size, this.size));
             label.setIcon(this.type.getIcon());
             
             this.panel.add(label);
@@ -66,7 +72,7 @@ public class GameSystem {
             this.panel.removeAll();
 
             JLabel label = new JLabel();
-            label.setPreferredSize(new Dimension(100, 100));
+            label.setPreferredSize(new Dimension(this.size, this.size));
             label.setIcon(this.type.getIcon());
             
             this.panel.add(label);
@@ -77,7 +83,12 @@ public class GameSystem {
     }
     public GameSystem(int mapIndex) {
         this.mapIndex = mapIndex;
-        this.currentMap = GameMap.maps.get(mapIndex);
+        try {
+            this.currentMap = new GameMap(GameMap.maps.get(mapIndex).getHeight(), GameMap.maps.get(mapIndex).getWidth());
+            BeanUtils.copyProperties(this.currentMap, GameMap.maps.get(mapIndex));
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
         for(int i = 1; i <= this.currentMap.getHeight(); ++i)
             for(int j = 1; j <= this.currentMap.getWidth(); ++j)
                 if(this.currentMap.GetMapByIndex(i, j) == 4 || this.currentMap.GetMapByIndex(i, j) == 5)
@@ -106,13 +117,15 @@ public class GameSystem {
         JPanel mainPanel = new JPanel(new GridLayout(currentMap.getHeight(), currentMap.getWidth(), 10, 10));
         Field[][] field = new Field[currentMap.getHeight() + 1][currentMap.getWidth() + 1];
 
-        mainPanel.setBounds(100, 80, currentMap.getWidth() * 120, currentMap.getHeight() * 120);
+        int blockSize = 1000 / (int)Math.max(currentMap.getWidth(), currentMap.getHeight());
+        // mainPanel.setBounds(100, 40, currentMap.getWidth() * 120, currentMap.getHeight() * 120);
+        mainPanel.setBounds(100, 80, currentMap.getWidth() * blockSize, currentMap.getHeight() * blockSize);
 
         IntStream.range(1, currentMap.getHeight() + 1).forEach(
             i -> {
                 IntStream.range(1, currentMap.getWidth() + 1).forEach(
                     j -> {
-                        field[i][j] = new Field(FieldType.values()[currentMap.GetMapByIndex(i, j)]);
+                        field[i][j] = new Field(FieldType.values()[currentMap.GetMapByIndex(i, j)], blockSize);
                         mainPanel.add(field[i][j].panel);
                     }
                 );
@@ -121,8 +134,15 @@ public class GameSystem {
         
         frame.add(mainPanel);
 
+        JPanel buttonPanel = new JPanel();
+
         JButton resetButton = CreateDefaultMenuButton("Reset");
-        resetButton.setLocation(new Point(1001, 300));
+        resetButton.setLocation(new Point(mainPanel.getWidth() + 100 + 100, 100));
+        resetButton.setSize(new Dimension(200, 80));
+
+        buttonPanel.add(resetButton);
+        buttonPanel.setBackground(Color.GREEN);
+
         frame.add(resetButton);
         
 
@@ -209,8 +229,7 @@ public class GameSystem {
 
                                 }
                             }
-                            if (boxNextX < 1 || boxNextX > currentMap.getHeight() || boxNextY < 1
-                                    || boxNextY > currentMap.getWidth())
+                            if (boxNextX < 1 || boxNextX > currentMap.getHeight() || boxNextY < 1 || boxNextY > currentMap.getWidth())
                                 return;
                             switch (field[boxNextX][boxNextY].type) {
                                 case Empty -> {
@@ -357,7 +376,33 @@ public class GameSystem {
             }
         );
     
-
+        resetButton.addActionListener(
+            e -> {
+                try {
+                    this.currentMap = new GameMap(GameMap.maps.get(mapIndex).getHeight(), GameMap.maps.get(mapIndex).getWidth());
+                    
+                } catch (Exception ee) {}
+                for(int i = 1; i <= this.currentMap.getHeight(); ++i)
+                    for(int j = 1; j <= this.currentMap.getWidth(); ++j)
+                        if(this.currentMap.GetMapByIndex(i, j) == 4 || this.currentMap.GetMapByIndex(i, j) == 5)
+                            this.player = new Player(i, j);
+                if(this.player == null){
+                    System.err.println("Building map failed! #Map without player.");
+                    System.exit(1);
+                }
+                IntStream.range(1, currentMap.getHeight() + 1).forEach(
+                    i -> {
+                        IntStream.range(1, currentMap.getWidth() + 1).forEach(
+                            j -> {
+                                field[i][j].UpdateType(FieldType.values()[currentMap.GetMapByIndex(i, j)]);
+                            }
+                        );
+                    }
+                );
+                frame.setFocusable(true);
+                frame.requestFocus();
+            }
+        );
         // restartBtn.addActionListener(
         //         e -> {
         //             frame.dispose();
