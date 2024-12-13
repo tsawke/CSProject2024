@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
 import java.util.stream.IntStream;
 
 import javax.swing.JButton;
@@ -17,6 +18,8 @@ import javax.swing.JPanel;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.jme3.scene.shape.Box;
+import com.jogamp.newt.event.WindowEvent;
 import com.ochafik.beans.BeansUtils;
 
 public class GameSystem {
@@ -85,10 +88,19 @@ public class GameSystem {
         this.mapIndex = mapIndex;
         try {
             this.currentMap = new GameMap(GameMap.maps.get(mapIndex).getHeight(), GameMap.maps.get(mapIndex).getWidth());
-            BeanUtils.copyProperties(this.currentMap, GameMap.maps.get(mapIndex));
+            // BeanUtils.copyProperties(this.currentMap, GameMap.maps.get(mapIndex));
         } catch (Exception ee) {
             ee.printStackTrace();
         }
+        IntStream.range(1, currentMap.getHeight() + 1).forEach(
+            i -> {
+                IntStream.range(1, currentMap.getWidth() + 1).forEach(
+                    j -> {
+                        this.currentMap.SetMapByIndex(i, j, GameMap.maps.get(mapIndex).GetMapByIndex(i, j));
+                    }
+                );
+            }
+        );
         for(int i = 1; i <= this.currentMap.getHeight(); ++i)
             for(int j = 1; j <= this.currentMap.getWidth(); ++j)
                 if(this.currentMap.GetMapByIndex(i, j) == 4 || this.currentMap.GetMapByIndex(i, j) == 5)
@@ -104,6 +116,17 @@ public class GameSystem {
         button.setFont(new Font("Arial", Font.PLAIN, 40));
         return button;
     }
+    
+    private int counter = 0;
+
+    public int getCounter() {
+        return counter;
+    }
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+    private boolean flag = true;
 
     public void CreateAndShowWindow() {
         FlatLightLaf.setup();
@@ -134,31 +157,44 @@ public class GameSystem {
         
         frame.add(mainPanel);
 
-        JPanel buttonPanel = new JPanel();
+        JLabel levelLabel = new JLabel("Level:    " + mapIndex);
+        levelLabel.setLocation(new Point(mainPanel.getWidth() + 100 + 100, 100));
+        levelLabel.setSize(new Dimension(200, 80));
+        levelLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+
+        frame.add(levelLabel);
+
+        JButton saveButton = CreateDefaultMenuButton("Save");
+        saveButton.setLocation(new Point(mainPanel.getWidth() + 100 + 100, 300));
+        saveButton.setSize(new Dimension(200, 80));
+
+        frame.add(saveButton);
 
         JButton resetButton = CreateDefaultMenuButton("Reset");
-        resetButton.setLocation(new Point(mainPanel.getWidth() + 100 + 100, 100));
+        resetButton.setLocation(new Point(mainPanel.getWidth() + 100 + 100, 400));
         resetButton.setSize(new Dimension(200, 80));
 
-        buttonPanel.add(resetButton);
-        buttonPanel.setBackground(Color.GREEN);
-
         frame.add(resetButton);
+
+        JLabel stepLabel = new JLabel("Steps:");
+        stepLabel.setLocation(new Point(mainPanel.getWidth() + 100 + 100, 200));
+        stepLabel.setSize(new Dimension(200, 80));
+        stepLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+
+        frame.add(stepLabel);
         
+        JLabel stepCounter = new JLabel(String.valueOf(this.counter));
+        stepCounter.setLocation(new Point(mainPanel.getWidth() + 100 + 250, 200));
+        stepCounter.setSize(new Dimension(200, 80));
+        stepCounter.setFont(new Font("Arial", Font.PLAIN, 40));
 
-        /////////////////////////
+        frame.add(stepCounter);
 
-        // restartBtn = FrameUtil.createButton(frame, "Restart", new Point(mainPanel.getWidth() + 200, 210), 80, 50);
-        // loadBtn = FrameUtil.createButton(frame, "Load", new Point(mainPanel.getWidth() + 200, 300), 80, 50);
-        // BackBtn = FrameUtil.createButton(frame, "Back To Menu", new Point(mainPanel.getWidth() + 200, 390), 160, 50);
-        // stepLabel = FrameUtil.createJLabel(frame, "Start", new Font("serif", Font.ITALIC, 22), new Point(mainPanel.getWidth() + 200, 70), 180, 50);
-        // frame.add(restartBtn);
-        // frame.add(loadBtn);
-        // frame.add(stepLabel);
+            //TODO Movement buttons
 
-        /////////////////////////
         
         // mainPanel.requestFocus();
+        
         frame.addKeyListener(
             new KeyAdapter() {
                 @Override
@@ -360,28 +396,64 @@ public class GameSystem {
                             }
                         }
                     }
+                    ++counter;
+                    stepCounter.setText(String.valueOf(counter));
                     // TestShowcase(field);
                     IntStream.range(1, currentMap.getHeight() + 1).forEach(
                         i -> {
                             IntStream.range(1, currentMap.getWidth() + 1).forEach(
-                                    j -> {
-                                        currentMap.SetMapByIndex(i, j, field[i][j].type.ConvertToInt());
-                                    });
-                    });
+                                j -> {
+                                    currentMap.SetMapByIndex(i, j, field[i][j].type.ConvertToInt());
+                                }
+                            );
+                        }
+                    );
+
+                    flag = true;
+                    IntStream.range(1, currentMap.getHeight() + 1).forEach(
+                        i -> {
+                            IntStream.range(1, currentMap.getWidth() + 1).forEach(
+                                j -> {
+                                    if(field[i][j].type == FieldType.Box)
+                                        flag = false;
+                                }
+                            );
+                        }
+                    );
+                    if(flag) {
+
+                    }
+
                     try {
-                        Archive.SetArchiveByID(User.currentUser.getUID(), mapIndex, currentMap);
+                        Archive.SetArchiveByID(User.currentUser.getUID(), mapIndex, currentMap, counter);
                     } catch (Exception e1) {
                     }
                 }
             }
         );
     
+        saveButton.addActionListener(
+            e -> {
+                try {
+                    Archive.SetArchiveByID(User.currentUser.getUID(), mapIndex, currentMap, counter);
+                } catch (Exception e1) {}
+            }
+        );
+
         resetButton.addActionListener(
             e -> {
                 try {
                     this.currentMap = new GameMap(GameMap.maps.get(mapIndex).getHeight(), GameMap.maps.get(mapIndex).getWidth());
-                    
                 } catch (Exception ee) {}
+                IntStream.range(1, currentMap.getHeight() + 1).forEach(
+                    i -> {
+                        IntStream.range(1, currentMap.getWidth() + 1).forEach(
+                            j -> {
+                                this.currentMap.SetMapByIndex(i, j, GameMap.maps.get(mapIndex).GetMapByIndex(i, j));
+                            }
+                        );
+                    }
+                );
                 for(int i = 1; i <= this.currentMap.getHeight(); ++i)
                     for(int j = 1; j <= this.currentMap.getWidth(); ++j)
                         if(this.currentMap.GetMapByIndex(i, j) == 4 || this.currentMap.GetMapByIndex(i, j) == 5)
@@ -399,6 +471,9 @@ public class GameSystem {
                         );
                     }
                 );
+                try {
+                    Archive.SetArchiveByID(User.currentUser.getUID(), mapIndex, currentMap, counter);
+                } catch (Exception e1) {}
                 frame.setFocusable(true);
                 frame.requestFocus();
             }
@@ -431,6 +506,18 @@ public class GameSystem {
                 
         //         }
         // );
+
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                try {
+                    Archive.SetArchiveByID(User.currentUser.getUID(), mapIndex, currentMap, counter);
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+        });
+
         frame.setFocusable(true);
         frame.requestFocus();
 
