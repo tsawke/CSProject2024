@@ -1,19 +1,19 @@
 package com.csproject.pages;
 
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 
-import java.awt.*;
-
 import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.system.CallbackI.J;
 
-import com.csproject.User;
 import com.csproject.dependencies.VerticalFlowLayout;
 import com.formdev.flatlaf.FlatLightLaf;
 
@@ -57,7 +57,7 @@ public class RankList {
         VerticalFlowLayout verticalLayout = new VerticalFlowLayout(10, 25);
         // verticalLayout.setFill(false);
         JPanel Ranks = new JPanel(verticalLayout);
-        Ranks.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+        Ranks.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
 
      

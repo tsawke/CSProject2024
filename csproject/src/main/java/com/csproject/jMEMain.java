@@ -18,7 +18,7 @@ import com.jme3.scene.Geometry;
 
 public class jMEMain extends SimpleApplication {
 
-    public static int mapIndex = 2;
+    public static int mapIndex = 1;
     public static List < Pair < Float, Float > > targets = new ArrayList<>();
     public static List < Geometry > boxes = new ArrayList<>();
 

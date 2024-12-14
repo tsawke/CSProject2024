@@ -24,7 +24,9 @@ import javax.swing.JPanel;
 import com.csproject.BeautifyUtils;
 import com.csproject.FieldType;
 import com.csproject.GameMap;
+import com.csproject.GameSystem;
 import com.csproject.dependencies.SwingUtil;
+import com.csproject.jMEMain;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class ChooseMap extends Index {
@@ -124,7 +126,15 @@ public class ChooseMap extends Index {
 
         button2D.addActionListener(
             e -> {
-                
+                GameSystem gameSystem = new GameSystem(index);
+                gameSystem.CreateAndShowWindow();
+            }
+        );
+
+        button3D.addActionListener(
+            e -> {
+                jMEMain.mapIndex = index;
+                jMEMain.main(new String[0]);
             }
         );
 
