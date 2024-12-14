@@ -1,6 +1,5 @@
 package com.csproject;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -15,12 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.apache.commons.beanutils.BeanUtils;
-
 import com.formdev.flatlaf.FlatLightLaf;
-import com.jme3.scene.shape.Box;
 import com.jogamp.newt.event.WindowEvent;
-import com.ochafik.beans.BeansUtils;
 
 public class GameSystem {
     
@@ -480,34 +475,6 @@ public class GameSystem {
                 frame.requestFocus();
             }
         );
-        // restartBtn.addActionListener(
-        //         e -> {
-        //             frame.dispose();
-        //             GameSystem game = new GameSystem(mapIndex);
-        //             game.CreateAndShowWindow();
-        //         }
-        // );
-
-        // loadBtn.addActionListener(
-        //         e -> {
-        //             frame.dispose();
-        //             GameSystem game = new GameSystem(mapIndex);
-        //             game.CreateAndShowWindow();
-        //         }
-        // );
-
-        // BackBtn.addActionListener(
-        //         e -> {
-        //             try {
-        //                 // AskForSave.CreateAndShowDialog();
-        //                 frame.dispose();
-        //             } catch (Exception e1) {
-        //                 // TODO Auto-generated catch block
-        //                 e1.printStackTrace();
-        //             }
-                
-        //         }
-        // );
 
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
