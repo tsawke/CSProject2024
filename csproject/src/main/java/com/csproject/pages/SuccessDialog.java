@@ -11,11 +11,14 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.csproject.Archive;
 import com.csproject.BeautifyUtils;
 import com.csproject.GameSystem;
+import com.csproject.User;
 
 public class SuccessDialog {
     public static JButton CreateDefaultMenuButton(String Name) {
@@ -23,39 +26,23 @@ public class SuccessDialog {
         button.setFont(new Font("Arial", Font.PLAIN, 40));
         return button;
     }
-    // public static JPanel CreateDefaultTextFieldWithLable(String Name) {
-    //     JPanel panel = new JPanel();
-    //     panel.setLayout(new FlowLayout());
-
-    //     JLabel lable = new JLabel(Name);
-    //     lable.setFont(new Font("Arial", Font.PLAIN, 35));
-
-    //     JTextField textField = new JTextField(30);
-    //     textField.setPreferredSize(new Dimension(30, 30));
-    //     textField.setBorder(BeautifyUtils.defaultGrayBorder);
-
-    //     panel.add(lable);
-    //     panel.add(textField);
-
-    //     return panel;
-    // }
-
-    // private static JTextField usernameTextField = new JTextField();
-    // private static JTextField passwordTextField = new JTextField();
-    // private static JLabel usernameLabel = new JLabel();
-    // private static JLabel passwordLabel = new JLabel();
     
-    public static void CreateAndShowDialog(int currentMapIndex) throws Exception {
+    public static void CreateAndShowDialog(int currentMapIndex, boolean is3D, JFrame father) throws Exception {
         JDialog dialog = new JDialog(Index.frame, "Success");
         dialog.setModal(true);
         dialog.setSize(1200, 300);
-        dialog.setLocationRelativeTo(Index.frame);
+        dialog.setLocationRelativeTo(father);
         dialog.setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
         panel.setBackground(Color.gray);
 
-        JLabel title = currentMapIndex == 5 ? new JLabel("Congratulations! You've completed the levels!") : new JLabel("Excellent! You win!");
+        JLabel title = is3D 
+            ? new JLabel("Congratulations! Welcome to try again!")
+            : (currentMapIndex == 5
+                ? new JLabel("Congratulations! You've completed the levels!")
+                : new JLabel("Excellent! You win!")
+            );
         title.setFont(new Font("Arial", Font.PLAIN, 50));
         // title.setSize(new Dimension(1200, 100));
 
@@ -98,28 +85,72 @@ public class SuccessDialog {
 
         content.add(mainPanel, BorderLayout.CENTER);
 
-        if(currentMapIndex == 5) {
+        if(currentMapIndex == 5 || is3D) {
             next.setBackground(Color.GRAY);
             next.setBorder(BeautifyUtils.defaultGrayBorder);
         } else {
+            
             next.addActionListener(
                 e -> {
-                    dialog.dispose();
-                    GameSystem gameSystem = new GameSystem(currentMapIndex + 1);
-                    gameSystem.CreateAndShowWindow();
+                    // if(is3D) {
+                    //     dialog.dispose();
+                    //     Thread thread = new Thread(new Runnable(){
+                    //         @Override
+                    //         public void run() {
+                    //             Run3D.Run(currentMapIndex + 1);
+                    //         }
+                    //     });
+                    //     thread.start();
+                    // } else {
+                        dialog.dispose();
+                        try {
+                            Archive.SetLevelArchiveByID(User.currentUser.getUID(), currentMapIndex + 1);
+                        } catch (Exception e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
+                        GameSystem gameSystem = new GameSystem(currentMapIndex + 1);
+                        gameSystem.CreateAndShowWindow();
+                    // }
+                    
                 }
             );
         }
-
-        restart.addActionListener(
-            e -> {
-                dialog.dispose();
-                GameSystem gameSystem = new GameSystem(currentMapIndex);
-                gameSystem.CreateAndShowWindow();
-            }
-        );
+        if(is3D) {
+            restart.setBackground(Color.GRAY);
+            restart.setBorder(BeautifyUtils.defaultGrayBorder);
+        } else {
+            restart.addActionListener(
+                e -> {
+                    
+                    // if(is3D) {
+                    //     dialog.dispose();
+                    //     Thread thread = new Thread(new Runnable(){
+                    //         @Override
+                    //         public void run() {
+                    //             Run3D.Run(currentMapIndex);
+                    //         }
+                    //     });
+                    //     thread.start();
+                    // } else {
+                        dialog.dispose();
+                        GameSystem gameSystem = new GameSystem(currentMapIndex);
+                        gameSystem.CreateAndShowWindow();
+                    // }
+                    
+                }
+            );
+        }
+        
         exit.addActionListener(
             e -> {
+                if(is3D)System.exit(0);
+                try {
+                    Archive.SetLevelArchiveByID(User.currentUser.getUID(), currentMapIndex + 1);
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 dialog.dispose();
                 try {
                     Index.CreateAndShowWindow();

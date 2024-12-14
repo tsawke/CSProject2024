@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -68,7 +69,7 @@ public class SignUp {
     private static JLabel usernameLabel = new JLabel();
     private static JLabel passwordLabel = new JLabel();
     
-    public static void CreateAndShowDialog() {
+    public static void CreateAndShowDialog(JFrame father) {
         JDialog dialog = new JDialog(Index.frame, "SignUp");
         dialog.setModal(true);
         dialog.setSize(800, 400);
@@ -175,7 +176,7 @@ public class SignUp {
                 try {
                     switch(SignUpUser(username, password_plain)) {
                         case 0 -> {
-                            LogIn.LogInUser(username, password_plain);
+                            LogIn.LogInUser(username, password_plain, father);
                             dialog.dispose();
                         }
                         case 1 -> {

@@ -92,15 +92,17 @@ public class ChooseMap extends Index {
         frame2.setSize(500, 500);
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame2.setVisible(true);
-        // frame2.setAlwaysOnTop(true);
+        frame2.setAlwaysOnTop(true);
 
         frame.setVisible(true);
+
+        Thread.sleep(50);
 
         BufferedImage img = new  BufferedImage(mainPanel.getWidth(), mainPanel.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D g2d = img.createGraphics();
         mainPanel.paintAll(g2d);
         ImageIO.write(img, "png", new File("./csproject/src/main/resources/Icons/map" + idx + ".png"));
-        Thread.sleep(200);
+        Thread.sleep(100);
         frame.dispose();
         frame2.dispose();
     }
@@ -133,7 +135,6 @@ public class ChooseMap extends Index {
                 gameSystem.CreateAndShowWindow();
             }
         );
-        // Run3D.Run(2);
 
         button3D.addActionListener(
             new ActionListener() {
@@ -147,12 +148,6 @@ public class ChooseMap extends Index {
                     });
                     thread.start();
                     frame.dispose();
-                    
-                    // jMEMain app = new jMEMain();
-                    // app.start();
-                    // jMEMain();
-                    // jMEMain.mapIndex = index;
-                    // jMEMain.main(null);
                 }
             }
         );

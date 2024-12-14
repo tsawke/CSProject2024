@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,7 +25,7 @@ import com.csproject.User;
 import com.csproject.dependencies.Validator;
 
 public class LogIn {
-    public static int LogInUser(String username, String password_plain) throws Exception {
+    public static int LogInUser(String username, String password_plain, JFrame lastFrame) throws Exception {
         if(
             !H2Database.IfExistUserByUsername(username) ||
             !Validator.isUsername(username) ||
@@ -34,6 +35,8 @@ public class LogIn {
         String password_sha256 = EncryptUtils.sha256(password_plain);
         if(!currentUser.getPassword_sha256().equals(password_sha256))return 2;
         User.currentUser = currentUser;
+        lastFrame.dispose();
+        Index.CreateAndShowWindow();
         return 0;
     }
     public static JButton CreateDefaultMenuButton(String Name) {
@@ -63,7 +66,7 @@ public class LogIn {
     private static JLabel usernameLabel = new JLabel();
     private static JLabel passwordLabel = new JLabel();
     
-    public static void CreateAndShowDialog() throws Exception {
+    public static void CreateAndShowDialog(JFrame father) throws Exception {
         JDialog dialog = new JDialog(Index.frame, "Log In");
         dialog.setModal(true);
         dialog.setSize(800, 400);
@@ -185,31 +188,33 @@ public class LogIn {
                 String password_plain = passwordTextField.getText();
             
                 try {
-                    switch(LogInUser(username, password_plain)) {
+                    switch(LogInUser(username, password_plain, father)) {
                         case 0 -> {
                             dialog.dispose();
                         }
                         case 1 -> {
-                            ErrorDialog.CreateAndShowDialog(dialog, "Username doesn't exist!");
+                            ErrorDialog.CreateAndShowDialog(dialog, "Username or password doesn't exist!");
                         }
                         case 2 -> {
                             ErrorDialog.CreateAndShowDialog(dialog, "Password doesn't match the username!");
                         }
                         default -> {}
                     }
-                } catch (Exception e1) {}
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
         );
         signup.addActionListener(
             e -> {
                 dialog.dispose();
-                SignUp.CreateAndShowDialog();
+                SignUp.CreateAndShowDialog(father);
             }
         );
         visit.addActionListener(
             e -> {
                 GameSystem.isGuest = true;
-                User.currentUser = null;
+                User.currentUser = new User(0, "visitor", "visitor");
                 dialog.dispose();
             }
         );

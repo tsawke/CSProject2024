@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.stream.IntStream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -61,14 +60,14 @@ public class Index {
         Pair<JPanel, JButton> setting = createDefaultMenuButtonAndPanel("Setting");
         Pair<JPanel, JButton> exit = createDefaultMenuButtonAndPanel("Exit");
 
-        if (User.currentUser == null || GameSystem.isGuest || false/* TODO */) {
+        if (User.currentUser.getUID() == 0 || GameSystem.isGuest || false/* TODO */) {
             loadArchive.getRight().setBackground(Color.GRAY);
             loadArchive.getRight().setBorder(BeautifyUtils.defaultGrayBorder);
         } else {
             loadArchive.getRight().addActionListener((e) -> {
                 GameSystem gameSystem = new GameSystem(1);
                 try {
-                    Archive.LoadArchiveByID(User.currentUser.getUID(), gameSystem);
+                    Archive.LoadArchiveByID_WithCheckArchive(User.currentUser.getUID(), gameSystem);
                 } catch (Exception e1) {
                 }
                 gameSystem.CreateAndShowWindow();
@@ -76,17 +75,63 @@ public class Index {
         }
 
         newGame.getRight().addActionListener((e) -> {
-            IntStream.range(1, 5 + 1).forEach(
-                    i -> {
+            // frame.removeAll();
+            JFrame tmpFrame = new JFrame();
+            tmpFrame.setSize(800, 200);
+            tmpFrame.setLocationRelativeTo(Index.frame);
+            tmpFrame.setLayout(new BorderLayout());
+            tmpFrame.setAlwaysOnTop(true);
+
+            frame.dispose();
+
+            JPanel textPanel = new JPanel();
+            panel.setBackground(Color.gray);
+
+            JLabel text = new JLabel("Loading...");
+            text.setFont(new Font("Arial", Font.PLAIN, 80));
+
+            textPanel.add(text);
+
+            tmpFrame.add(textPanel);  
+            Container dContent = tmpFrame.getContentPane();
+            dContent.add(textPanel, BorderLayout.NORTH);
+            
+            tmpFrame.setVisible(true);
+
+
+            Thread thread = new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    for(int i = 1; i <= 5; ++i) {
                         try {
                             ChooseMap.CreateIcons(GameMap.maps.get(i), i);
                         } catch (Exception e1) {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
-                    });
+                        
+                    }
+                    tmpFrame.dispose();
+                    ChooseMap.CreateAndShowWindow();
+                }
+            });
+            thread.start();
+            
+            //TODO Why this will make jlabel lost?
+            // IntStream.range(1, 5 + 1).forEach(
+            //     i -> {
+            //         try {
+            //             ChooseMap.CreateIcons(GameMap.maps.get(i), i);
+            //         } catch (Exception e1) {
+            //             // TODO Auto-generated catch block
+            //             e1.printStackTrace();
+            //         }
+            // });
 
-            ChooseMap.CreateAndShowWindow();
+            // dialog.dispose();
+
+            // frame.dispose();        
+            
         });
 
         rankList.getRight().addActionListener((e) -> {
@@ -125,8 +170,8 @@ public class Index {
 
         frame.setVisible(true);
 
-        if(User.currentUser == null && !GameSystem.isGuest)
-            LogIn.CreateAndShowDialog();
+        if(User.currentUser.getUID() == 0 && !GameSystem.isGuest)
+            LogIn.CreateAndShowDialog(frame);
             ///////
         // SignUp.CreateAndShowDialog();
     }

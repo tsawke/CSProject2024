@@ -6,7 +6,7 @@ import java.util.List;
 public class User {
     public static List < User > users = new ArrayList<>();
     
-    public static User currentUser;
+    public static User currentUser = new User(0, "visitor", "visitor");
 
     public static final int baseUID = 10000000;
     // private static int playerCnt;
@@ -57,7 +57,7 @@ public class User {
         users.stream().forEach(u -> u.Describe());
     }
 
-    public User(int UID, String Username, String Password_sha256) throws Exception{
+    public User(int UID, String Username, String Password_sha256) {
         // Settings.GetProperties();
         // Settings.setPlayerCnt(Settings.getPlayerCnt() + 1);
         // this.UID = Settings.baseUID + Settings.getPlayerCnt();

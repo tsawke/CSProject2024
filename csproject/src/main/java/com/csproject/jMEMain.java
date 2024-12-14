@@ -6,6 +6,7 @@ import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.csproject.pages.SuccessDialog;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.bullet.BulletAppState;
@@ -15,6 +16,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
+import com.jme3.system.AppSettings;
 
 public class jMEMain extends SimpleApplication {
 
@@ -101,12 +103,51 @@ public class jMEMain extends SimpleApplication {
         }
         if(complete) {
             System.err.println("Success");
-            System.exit(0);
+
+            //TODO Why this doesn't work?
+            // Thread thread = new Thread(new Runnable(){
+            //     @Override
+            //     public void run() {
+            //         try {
+            //             // Index.CreateAndShowWindow();
+            //             SuccessDialog.CreateAndShowDialog(mapIndex);
+            //         } catch (Exception e) {
+            //             // TODO Auto-generated catch block
+            //             e.printStackTrace();
+            //         }
+            //     }
+            // });
+            // thread.start();
+            this.stop();
+            try {
+                // Index.CreateAndShowWindow();
+                SuccessDialog.CreateAndShowDialog(mapIndex, true, null);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            this.stop();
+            // System.exit(0);
         }
     }
-
+    public static boolean isFullScreen = false;
     public static void main(String[] args) {
         jMEMain app = new jMEMain();
-        app.start();
+
+        AppSettings settings = new AppSettings(true);
+        settings.setTitle("Sokoban Game");
+        settings.setResolution(1920, 1080);
+        settings.setFullscreen(isFullScreen);
+        settings.setVSync(true);
+
+        app.setSettings(settings);
+        app.setShowSettings(false);
+
+        //TODO Fatal Error: How to handle the threads?
+
+        Thread thread = new Thread(() -> {
+            app.start();
+        });
+        thread.start();
     }
 }
