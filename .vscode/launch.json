@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Index",
+            "request": "launch",
+            "mainClass": "com.csproject.pages.Index",
+            "projectName": "csproject"
+        },
+        {
+            "type": "java",
+            "name": "AskForNextLevel",
+            "request": "launch",
+            "mainClass": "com.csproject.pages.AskForNextLevel",
+            "projectName": "csproject"
+        },
+        {
+            "type": "java",
             "name": "AskForSave",
             "request": "launch",
             "mainClass": "com.csproject.pages.AskForSave",
