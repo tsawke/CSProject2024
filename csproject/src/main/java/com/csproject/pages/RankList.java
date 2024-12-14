@@ -72,7 +72,10 @@ public class RankList {
         JLabel Eighth = new JLabel(String.format("\t%-10s\t%-15s\t%d", "8th", "Username", 123), 0);
         JLabel Ninth = new JLabel(String.format("\t%-10s\t%-15s\t%d", "9th", "Username", 123), 0);
         JLabel Tenth = new JLabel(String.format("\t%-9s\t%-15s\t%d", "10th", "Username", 123), 0);
+        JPanel p = new JPanel();
+        p.setBackground(Color.GRAY);
         JLabel CurrentPlayer = new JLabel(String.format("\t%-9s\t%-15s\t%d", "YOU", "Username", 123), 0);
+        p.add(CurrentPlayer);
         // JLabel CurrentPlayer = new JLabel(String.format("\t%-9s\t%-15s\t%d", "YOU", User.currentUser.getUsername(),123 , 0);
 
         First.setFont(new Font("Arial", Font.PLAIN, 40));
@@ -98,6 +101,8 @@ public class RankList {
         Ranks.add(Ninth);
         Ranks.add(Tenth);
         Ranks.setBackground(Color.GRAY);
+
+
 
         
 
