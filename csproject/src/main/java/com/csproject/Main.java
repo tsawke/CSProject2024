@@ -1,7 +1,6 @@
 package com.csproject;
 
 import com.csproject.pages.ChooseMap;
-import com.csproject.pages.RankList;
 
 public class Main {
     
@@ -15,18 +14,18 @@ public class Main {
         User.InitUsers();
         User.DescribeAll();
         // H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(), "Test", "pwd"));
-        // jMEMain.main(args);
+        // jMEMain.main(null);
         // Index.CreateAndShowWindow();
         // ErrorDialog.CreateAndShowDialog(Index.frame, "Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.Test errorpage.");
     
-
+        // Run3D.Run(2);
         User.currentUser = H2Database.SelectUserByUsername("Test");
         // Archive.CreateDefaultArchiveByID(User.currentUser.getUID());
         // Index.CreateAndShowWindow();
 
         // // LogIn.CreateAndShowWindow();
 
-        RankList.CreateAndShowWindow();
+        // RankList.CreateAndShowWindow();
 
         ChooseMap.CreateAndShowWindow();
         // SuccessDialog.CreateAndShowDialog(4);
