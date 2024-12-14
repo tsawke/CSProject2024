@@ -123,6 +123,7 @@ public class Index {
 
         if(User.currentUser == null && !GameSystem.isGuest)
             LogIn.CreateAndShowDialog();
+            ///////
         // SignUp.CreateAndShowDialog();
     }
 }
