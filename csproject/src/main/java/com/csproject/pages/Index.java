@@ -61,7 +61,7 @@ public class Index {
         Pair<JPanel, JButton> setting = createDefaultMenuButtonAndPanel("Setting");
         Pair<JPanel, JButton> exit = createDefaultMenuButtonAndPanel("Exit");
 
-        if(User.currentUser == null || GameSystem.isGuest || false/* TODO */) {
+        if (User.currentUser == null || GameSystem.isGuest || false/* TODO */) {
             loadArchive.getRight().setBackground(Color.GRAY);
             loadArchive.getRight().setBorder(BeautifyUtils.defaultGrayBorder);
         } else {
@@ -69,23 +69,23 @@ public class Index {
                 GameSystem gameSystem = new GameSystem(1);
                 try {
                     Archive.LoadArchiveByID(User.currentUser.getUID(), gameSystem);
-                } catch (Exception e1) {}
+                } catch (Exception e1) {
+                }
                 gameSystem.CreateAndShowWindow();
             });
         }
 
         newGame.getRight().addActionListener((e) -> {
             IntStream.range(1, 5 + 1).forEach(
-                i -> {
-                    try {
-                        ChooseMap.CreateIcons(GameMap.maps.get(i), i);
-                    } catch (Exception e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    }
-                }
-            );
-                
+                    i -> {
+                        try {
+                            ChooseMap.CreateIcons(GameMap.maps.get(i), i);
+                        } catch (Exception e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
+                    });
+
             ChooseMap.CreateAndShowWindow();
         });
 
@@ -117,11 +117,22 @@ public class Index {
         buttons.add(setting.getLeft());
         buttons.add(exit.getLeft());
 
-        content.add(buttons, BorderLayout.CENTER);
+        // BackgroundImagePanel background = new
+        // BackgroundImagePanel("D:/CSProject2024/resources/Background.png");
+        // content.add(background, BorderLayout.CENTER,0);
+
+        content.add(buttons, BorderLayout.CENTER,1);
 
         frame.setVisible(true);
 
+        BackgroundImagePanel background = new BackgroundImagePanel("D:/CSProject2024/resources/Background.png");
+        content.add(background, BorderLayout.CENTER,0);
+
         LogIn.CreateAndShowDialog();
         // SignUp.CreateAndShowDialog();
+    }
+    
+    public static void main(String[] args) throws Exception {
+        Index.CreateAndShowWindow();
     }
 }

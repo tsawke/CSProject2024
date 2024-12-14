@@ -443,7 +443,9 @@ public class GameSystem {
         resetButton.addActionListener(
             e -> {
                 try {
-                    this.currentMap = new GameMap(GameMap.maps.get(mapIndex).getHeight(), GameMap.maps.get(mapIndex).getWidth());
+                        this.currentMap = new GameMap(GameMap.maps.get(mapIndex).getHeight(),
+                                GameMap.maps.get(mapIndex).getWidth());
+                    this.counter = 0;
                 } catch (Exception ee) {}
                 IntStream.range(1, currentMap.getHeight() + 1).forEach(
                     i -> {
@@ -533,7 +535,12 @@ public class GameSystem {
                 System.out.printf("%d%c", field[i][j].type, j == currentMap.getWidth() ? '\n' : ' ');
         System.out.printf("Player position %d, %d\n", player.getPosX(), player.getPosY());
     }
-    
+
+    public static void NextLevelGame() {
+        GameSystem game = new GameSystem(mapIndex + 1);
+        game.CreateAndShowWindow();
+    }
+
     public static void main(String[] args) {
         GameSystem game = new GameSystem(1);
         game.CreateAndShowWindow();
