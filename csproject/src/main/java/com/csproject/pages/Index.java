@@ -121,7 +121,8 @@ public class Index {
 
         frame.setVisible(true);
 
-        LogIn.CreateAndShowDialog();
+        if(User.currentUser == null && !GameSystem.isGuest)
+            LogIn.CreateAndShowDialog();
         // SignUp.CreateAndShowDialog();
     }
 }

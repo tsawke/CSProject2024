@@ -24,14 +24,15 @@ public class Main {
 
         // // LogIn.CreateAndShowWindow();
 
-        for(int i = 1; i <= 5; ++i)
-            ChooseMap.CreateIcons(GameMap.maps.get(i), i);
+        ChooseMap.CreateAndShowWindow();
+        // SuccessDialog.CreateAndShowDialog(4);
 
-        GameSystem gameSystem = new GameSystem(1);
-        gameSystem.CreateAndShowWindow();
+        // for(int i = 1; i <= 5; ++i)
+        //     ChooseMap.CreateIcons(GameMap.maps.get(i), i);
+
+        // GameSystem gameSystem = new GameSystem(1);
+        // gameSystem.CreateAndShowWindow();
         
-        //先显示登陆界面，并实现了Vistor功能
-        // LogIn.CreateAndShowWindow();
     
 
         // for(User i : users)System.out.println(i);

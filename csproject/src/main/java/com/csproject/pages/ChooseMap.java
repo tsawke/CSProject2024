@@ -2,6 +2,7 @@ package com.csproject.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,17 +10,21 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.stream.IntStream;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.apache.commons.lang3.tuple.Pair;
-
+import com.csproject.BeautifyUtils;
 import com.csproject.FieldType;
 import com.csproject.GameMap;
+import com.csproject.dependencies.SwingUtil;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class ChooseMap extends Index {
@@ -95,11 +100,48 @@ public class ChooseMap extends Index {
         frame.dispose();
         frame2.dispose();
     }
-   
+
+    public static JPanel CreateCellPanel(int index) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel label = new JLabel("Level " + index);
+        label.setFont(new Font("Arial", Font.PLAIN, 30));
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel icon = new JLabel();
+        icon.setIcon(SwingUtil.createAutoAdjustIcon("./csproject/src/main/resources/Icons/map" + index + ".png", false));
+        icon.setAlignmentX(Component.CENTER_ALIGNMENT);
+        icon.setPreferredSize(new Dimension(300, 300));
+
+        JButton button2D = new JButton("Play 2D");
+        button2D.setFont(new Font("Arial", Font.PLAIN, 20));
+        button2D.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JButton button3D = new JButton("Play 3D");
+        button3D.setFont(new Font("Arial", Font.PLAIN, 20));
+        button3D.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        button2D.addActionListener(
+            e -> {
+                
+            }
+        );
+
+        panel.add(label);
+        panel.add(icon);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(button2D);
+        panel.add(Box.createVerticalStrut(5));
+        panel.add(button3D);
+        panel.add(Box.createVerticalStrut(10));
+
+        panel.setBorder(BeautifyUtils.defaultGrayBorder);
+
+        return panel;
+    }
 
     public static void CreateAndShowWindow() {
-
-        JPanel[] MapPanel = new JPanel[5];
 
         JFrame frame = new JFrame("Choose Map");
         frame.setSize(1920, 1080);
@@ -116,9 +158,34 @@ public class ChooseMap extends Index {
 
         Container content = frame.getContentPane();
         content.add(panel, BorderLayout.NORTH);
-    
-    }
 
+        JPanel mapPanel = new JPanel();
+        mapPanel.setLayout(new GridLayout(2, 3, 150, 20));
+
+        // JPanel[] descMapPanel = new JPanel[6];
+        IntStream.range(1, 6).forEach(
+            i -> {
+                mapPanel.add(CreateCellPanel(i));
+            }
+        );
+        
+        // JPanel placeHolder = new JPanel();
+        // placeHolder.setPreferredSize(new Dimension(1800, 10));
+
+        JPanel mainPanel = new JPanel();
+        // mainPanel.setSize(new Dimension(1920, 900));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+
+        // mainPanel.add(placeHolder);
+        mainPanel.add(mapPanel);
+
+        content.add(mainPanel, BorderLayout.CENTER);
+
+        frame.setFocusable(true);
+        frame.requestFocus();
+        frame.setVisible(true);
+    }
+}
         
         
 
@@ -213,15 +280,15 @@ public class ChooseMap extends Index {
 
         // 创建选地图按钮
 
-        public static Pair<JPanel, JButton> createButtonAndPanel(String Name, JPanel MapPanel) {
-            JButton button = new JButton(Name);
-            button.setFont(new Font("Arial", Font.PLAIN, 40));
-            button.setPreferredSize(new Dimension(500, 50));
-            JPanel buttonPanel = MapPanel;
-            buttonPanel.add(button);
-            buttonPanel.setBackground(Color.DARK_GRAY);
-            return Pair.of(buttonPanel, button);
-        }
+        // public static Pair<JPanel, JButton> createButtonAndPanel(String Name, JPanel MapPanel) {
+        //     JButton button = new JButton(Name);
+        //     button.setFont(new Font("Arial", Font.PLAIN, 40));
+        //     button.setPreferredSize(new Dimension(500, 50));
+        //     JPanel buttonPanel = MapPanel;
+        //     buttonPanel.add(button);
+        //     buttonPanel.setBackground(Color.DARK_GRAY);
+        //     return Pair.of(buttonPanel, button);
+        // }
 
 
         //  JButton Map1Button = Map1.getRight();
@@ -257,7 +324,7 @@ public class ChooseMap extends Index {
 
         // 使用Grid Layout排布选地图按钮
         // 创建一个JPanel作为子容器，使用GridLayout
-        JPanel buttons = new JPanel(new GridLayout(2, 3, 20, 20));
+        // JPanel buttons = new JPanel(new GridLayout(2, 3, 20, 20));
         // buttons.setBackground(Color.DARK_GRAY);
         // buttons.add(Map1.getRight());
         // buttons.add(Map2.getRight());
@@ -295,4 +362,4 @@ public class ChooseMap extends Index {
         // frame.setVisible(true);
         // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    }
+    // }
