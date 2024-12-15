@@ -6,7 +6,7 @@
 - Main menu(tsawke)
 - Database to store UID, password, score, etc(tsawke)
 - User configuration(tsawke)
-- Choose map(Victoria)
+- Choose map(tsawke)
 - LogIn (tsawke)
 - SignUp (tsawke)
 - Map (Victoria)(tsawke)
@@ -14,14 +14,16 @@
 - AI recommended route(optional)
 - Showcase map(tsawke)
 - Player move and count steps, etc(tsawke)
-- Ranklist
+- Ranklist(Victoria)
 - Archive (tsawke)
-- Basic UI
-- GameSystem Complex UI
+- Basic UI(tsawke)
+- GameSystem Complex Ui (TSAWKE)
 - 3D Game(tsawke)
+- Other stuff(tsawke)
 - ...
 
 ## Logs
+- 20241216 - tsawke - Complete Music, GameSystem, Dialogs, etc......
 - 20241211 - tsawke - Complete archive.
 - 20241210 - tsawke - Create some utils and template.
 - 20241210 - tsawke - Rewrite LogIn, SignUp.
