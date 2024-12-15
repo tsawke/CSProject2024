@@ -103,7 +103,10 @@ public class Archive {
         
         // properties.setProperty("playerCnt", Integer.toString(playerCnt));
         int mapID = Integer.parseInt(properties.getProperty("currentLevel"));
-        gameSystem.getCurrentMap().setMap(new int[GameMap.maps.get(mapID).getHeight()][GameMap.maps.get(mapID).getWidth()]);
+
+        gameSystem = new GameSystem(mapID);
+
+        gameSystem.getCurrentMap().setMap(new int[GameMap.maps.get(mapID).getHeight() + 10][GameMap.maps.get(mapID).getWidth() + 10]);
 
         GameSystem.setMapIndex(mapID);
 

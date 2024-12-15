@@ -143,9 +143,12 @@ public class Index {
             }
         });
 
-        setting.getRight().addActionListener((e) -> {
-            System.out.println("Press Button.");
-        });
+        setting.getRight().setBackground(Color.GRAY);
+        setting.getRight().setBorder(BeautifyUtils.defaultGrayBorder);
+
+        // setting.getRight().addActionListener((e) -> {
+        //     System.out.println("Press Button.");
+        // });
 
         exit.getRight().addActionListener((e) -> {
             System.exit(0);

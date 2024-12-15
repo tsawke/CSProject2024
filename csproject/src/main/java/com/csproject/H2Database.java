@@ -32,7 +32,7 @@ public class H2Database {
                     e.printStackTrace();
                 }
                 try {
-                    statement.execute("CREATE TABLE User(UID INT PRIMARY KEY, Steps INT);");
+                    statement.execute("CREATE TABLE Rank" + i + "(UID INT PRIMARY KEY, Steps INT);");
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -51,7 +51,7 @@ public class H2Database {
         Class.forName(DRIVER_CLASS);
         Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
         Statement statement = connection.createStatement();
-        ResultSet res = statement.executeQuery("SELECT * FROM Rank;");
+        ResultSet res = statement.executeQuery("SELECT * FROM Rank" + idx + ";");
         List < Pair < User, Integer > > ret = new ArrayList<>();
         while(res.next())
             ret.add(Pair.of(SelectUserByUID(res.getInt("UID")), res.getInt("steps")));

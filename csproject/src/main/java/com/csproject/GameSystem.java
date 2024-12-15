@@ -368,6 +368,13 @@ public class GameSystem {
         );
         if(flag) {
             try {
+                H2Database.InsertRank(mapIndex, User.currentUser, counter);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            try {
                 SuccessDialog.CreateAndShowDialog(mapIndex, false, frame);
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
@@ -414,7 +421,7 @@ public class GameSystem {
         frame.setLayout(null);
 
         JPanel mainPanel = new JPanel(new GridLayout(currentMap.getHeight(), currentMap.getWidth(), 10, 10));
-        Field[][] field = new Field[currentMap.getHeight() + 1][currentMap.getWidth() + 1];
+        Field[][] field = new Field[currentMap.getHeight() + 10][currentMap.getWidth() + 10];
 
         int blockSize = 1000 / (int)Math.max(currentMap.getWidth(), currentMap.getHeight());
         // mainPanel.setBounds(100, 40, currentMap.getWidth() * 120, currentMap.getHeight() * 120);

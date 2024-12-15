@@ -12,6 +12,7 @@ public class Main {
         // Archive.CreateDefaultArchiveByID(1);
 
         // H2Database.CreateDefaultTables();
+        
         User.InitUsers();
         User.DescribeAll();
         // H2Database.InsertUser(new User(User.baseUID + User.GetAndUpdatePlayerCnt(), "Test", "pwd"));
