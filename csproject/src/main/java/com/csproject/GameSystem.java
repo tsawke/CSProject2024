@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 
 import com.csproject.dependencies.SwingUtil;
 import com.csproject.pages.FailDialog;
+import com.csproject.pages.Index;
 import com.csproject.pages.SuccessDialog;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.jogamp.newt.event.WindowEvent;
@@ -453,6 +454,12 @@ public class GameSystem {
 
         frame.add(saveButton);
 
+        JButton exitButton = CreateDefaultMenuButton("Exit");
+        exitButton.setLocation(new Point(mainPanel.getWidth() + 100 + 100, 750));
+        exitButton.setSize(new Dimension(200, 80));
+
+        frame.add(exitButton);
+
         JButton resetButton = CreateDefaultMenuButton("Reset");
         resetButton.setLocation(new Point(mainPanel.getWidth() + 100 + 100, 400));
         resetButton.setSize(new Dimension(200, 80));
@@ -540,6 +547,15 @@ public class GameSystem {
             e -> {
                 try {
                     Archive.SetArchiveByID(User.currentUser.getUID(), mapIndex, currentMap, counter);
+                } catch (Exception e1) {}
+            }
+        );
+
+        exitButton.addActionListener(
+            e -> {
+                try {
+                    frame.dispose();
+                    Index.CreateAndShowWindow();
                 } catch (Exception e1) {}
             }
         );
