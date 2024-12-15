@@ -143,12 +143,18 @@ public class Index {
             }
         });
 
-        setting.getRight().setBackground(Color.GRAY);
-        setting.getRight().setBorder(BeautifyUtils.defaultGrayBorder);
+        // setting.getRight().setBackground(Color.GRAY);
+        // setting.getRight().setBorder(BeautifyUtils.defaultGrayBorder);
 
-        // setting.getRight().addActionListener((e) -> {
-        //     System.out.println("Press Button.");
-        // });
+        setting.getRight().addActionListener((e) -> {
+            // System.out.println("Press Button.");
+            try {
+                Settings.CreateAndShowDialog(frame);
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
 
         exit.getRight().addActionListener((e) -> {
             System.exit(0);

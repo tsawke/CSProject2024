@@ -8,6 +8,7 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
+        BackgroundMusic.DefaultPlayBGM();
         // JmeThread jmeThread = new JmeThread();
         // Archive.CreateDefaultArchiveByID(1);
 

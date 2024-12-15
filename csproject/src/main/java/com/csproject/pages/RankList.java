@@ -8,11 +8,11 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -91,15 +91,22 @@ public class RankList {
                 try {
                     rankList = H2Database.GetRank(1);
                     int rank = 1;
+
                 for (Pair<User, Integer> pair : rankList) {
+                    
                     User user = pair.getLeft();
                     int steps = pair.getRight();
+
+                    System.err.println(user.getUsername() + "  " + steps);
+
                     JLabel rankLabel = new JLabel(String.format("\t%-10s\t%-15s\t%d", "No." + rank, user.getUsername(), steps));
                     rankLabel.setFont(new Font("Arial", Font.PLAIN, 20));
                     rankLabel.setForeground(Color.WHITE);
                     Ranks.add(rankLabel);
                     rank++;
             }
+
+
                 } catch (Exception e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();

@@ -58,7 +58,7 @@ public class H2Database {
         return ret.stream()
             .sorted((a, b) -> -Integer.compare(a.getRight(), b.getRight()))
             .collect(Collectors.toList());
-
+//Mutiple Results, Exists Multiple Scores By Single User
     }
     public static void InsertUser(User user) throws Exception{
         Class.forName(DRIVER_CLASS);
