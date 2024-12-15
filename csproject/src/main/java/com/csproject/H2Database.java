@@ -56,7 +56,7 @@ public class H2Database {
         while(res.next())
             ret.add(Pair.of(SelectUserByUID(res.getInt("UID")), res.getInt("steps")));
         return ret.stream()
-            .sorted((a, b) -> Integer.compare(a.getRight(), b.getRight()))
+            .sorted((a, b) -> -Integer.compare(a.getRight(), b.getRight()))
             .collect(Collectors.toList());
 
     }
