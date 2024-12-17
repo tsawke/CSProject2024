@@ -7,10 +7,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -24,8 +26,11 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 public class Index {
     public static JFrame frame;
+
     public static Pair<JPanel, JButton> createDefaultMenuButtonAndPanel(String Name) {
-        JButton button = new JButton(Name);
+        ImageIcon icon = new ImageIcon("csproject/src/main/resources/Icons/Basketball (2).png");
+        JButton button = new JButton(Name, icon);
+        button.setOpaque(false);// 设置控件是否透明，true为不透明，false为透明
         button.setFont(new Font("Arial", Font.PLAIN, 40));
         button.setPreferredSize(new Dimension(500, 50));
         JPanel buttonPanel = new JPanel();
