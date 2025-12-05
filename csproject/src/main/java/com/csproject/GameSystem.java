@@ -27,7 +27,7 @@ public class GameSystem {
     
 
     private GameMap currentMap;
-    private Player player;
+    public Player player;
 
     public GameMap getCurrentMap() {
         return currentMap;
@@ -421,8 +421,15 @@ public class GameSystem {
 
         frame.setLayout(null);
 
+        
         JPanel mainPanel = new JPanel(new GridLayout(currentMap.getHeight(), currentMap.getWidth(), 10, 10));
         Field[][] field = new Field[currentMap.getHeight() + 10][currentMap.getWidth() + 10];
+
+        for(int i = 1; i <= this.currentMap.getHeight(); ++i)
+            for(int j = 1; j <= this.currentMap.getWidth(); ++j)
+                if(this.currentMap.GetMapByIndex(i, j) == 4 || this.currentMap.GetMapByIndex(i, j) == 5)
+                    this.player = new Player(i, j);
+
 
         int blockSize = 1000 / (int)Math.max(currentMap.getWidth(), currentMap.getHeight());
         // mainPanel.setBounds(100, 40, currentMap.getWidth() * 120, currentMap.getHeight() * 120);

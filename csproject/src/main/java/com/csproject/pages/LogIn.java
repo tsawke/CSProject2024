@@ -90,7 +90,7 @@ public class LogIn {
         mainPanel.setLayout(new FlowLayout());
 
         JPanel usernamePanel = CreateDefaultTextFieldWithLable("Username: ");
-        
+
         if((Stream.of(usernamePanel.getComponents())
             .filter(c -> c instanceof JTextField)
             .collect(Collectors.toList())
