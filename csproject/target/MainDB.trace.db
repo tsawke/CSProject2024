@@ -2532,7 +2532,11 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:622)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 42 more
+<<<<<<< HEAD
 2024-12-17 10:33:57 jdbc[4]: null
+=======
+2024-12-17 10:40:33 jdbc[4]: null
+>>>>>>> 33e4a19f0ab3be10038c8c957f1300e6f87029b7
 org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-200]
 	at org.h2.message.DbException.get(DbException.java:205)
 	at org.h2.message.DbException.get(DbException.java:181)
@@ -2541,6 +2545,7 @@ org.h2.message.DbException: The connection was not closed by the application and
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:186)
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:152)
 	at org.h2.Driver.connect(Driver.java:69)
+<<<<<<< HEAD
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:682)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
 	at com.csproject.H2Database.IfExistUserByUsername(H2Database.java:84)
@@ -4412,10 +4417,52 @@ org.h2.message.DbException: The connection was not closed by the application and
 	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
 	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
 	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+=======
+	at java.sql/java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql/java.sql.DriverManager.getConnection(Unknown Source)
+	at com.csproject.H2Database.InsertRank(H2Database.java:46)
+	at com.csproject.GameSystem.DealWithKeyPressed(GameSystem.java:372)
+	at com.csproject.GameSystem$5.keyPressed(GameSystem.java:541)
+	at java.desktop/java.awt.Component.processKeyEvent(Unknown Source)
+	at java.desktop/java.awt.Component.processEvent(Unknown Source)
+	at java.desktop/java.awt.Container.processEvent(Unknown Source)
+	at java.desktop/java.awt.Window.processEvent(Unknown Source)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.Component.dispatchEvent(Unknown Source)
+	at java.desktop/java.awt.KeyboardFocusManager.redispatchEvent(Unknown Source)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(Unknown Source)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(Unknown Source)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(Unknown Source)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.dispatchEvent(Unknown Source)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.Component.dispatchEvent(Unknown Source)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.desktop/java.awt.EventQueue$4.run(Unknown Source)
+	at java.desktop/java.awt.EventQueue$4.run(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.desktop/java.awt.EventQueue$5.run(Unknown Source)
+	at java.desktop/java.awt.EventQueue$5.run(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.desktop/java.awt.EventDispatchThread.run(Unknown Source)
+>>>>>>> 33e4a19f0ab3be10038c8c957f1300e6f87029b7
 Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection was not closed by the application and is garbage collected [90018-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:622)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 46 more
+<<<<<<< HEAD
 2024-12-17 11:21:40 jdbc[7]: java.lang.Exception: Open Stack Trace
 	at org.h2.util.CloseWatcher.register(CloseWatcher.java:100)
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:187)
@@ -5258,3 +5305,5 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:622)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 102 more
+=======
+>>>>>>> 33e4a19f0ab3be10038c8c957f1300e6f87029b7

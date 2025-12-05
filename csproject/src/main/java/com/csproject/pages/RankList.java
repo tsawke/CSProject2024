@@ -101,11 +101,10 @@ public class RankList {
 
                     JLabel rankLabel = new JLabel(String.format("\t%-10s\t%-15s\t%d", "No." + rank, user.getUsername(), steps));
                     rankLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-                    rankLabel.setForeground(Color.WHITE);
+                    rankLabel.setForeground(Color.BLACK);
                     Ranks.add(rankLabel);
-                    rank++;
+                        rank++;
             }
-
 
                 } catch (Exception e1) {
                     // TODO Auto-generated catch block
@@ -123,7 +122,7 @@ public class RankList {
                     int steps = pair.getRight();
                     JLabel rankLabel = new JLabel(String.format("\t%-10s\t%-15s\t%d", "No." + rank2, user.getUsername(), steps));
                     rankLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-                    rankLabel.setForeground(Color.WHITE);
+                    rankLabel.setForeground(Color.DARK_GRAY);
                     Ranks.add(rankLabel);
                     rank2++;
             }
@@ -143,7 +142,7 @@ public class RankList {
                     int steps = pair.getRight();
                     JLabel rankLabel = new JLabel(String.format("\t%-10s\t%-15s\t%d", "No." + rank3, user.getUsername(), steps));
                     rankLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-                    rankLabel.setForeground(Color.WHITE);
+                    rankLabel.setForeground(Color.DARK_GRAY);
                     Ranks.add(rankLabel);
                     rank3++;
 
@@ -164,7 +163,7 @@ public class RankList {
                     int steps = pair.getRight();
                     JLabel rankLabel = new JLabel(String.format("\t%-10s\t%-15s\t%d", "No." + rank4, user.getUsername(), steps));
                     rankLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-                    rankLabel.setForeground(Color.WHITE);
+                    rankLabel.setForeground(Color.DARK_GRAY);
                     Ranks.add(rankLabel);
                     rank4++;
 
@@ -186,7 +185,7 @@ public class RankList {
                     int steps = pair.getRight();
                     JLabel rankLabel = new JLabel(String.format("\t%-10s\t%-15s\t%d", "No." + rank5, user.getUsername(), steps));
                     rankLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-                    rankLabel.setForeground(Color.WHITE);
+                    rankLabel.setForeground(Color.DARK_GRAY);
                     Ranks.add(rankLabel);
                     rank5++;
 
@@ -200,11 +199,6 @@ public class RankList {
             Ranks.removeAll();
             Ranks.revalidate();
             Ranks.repaint();
-            try {
-                RankList.CreateAndShowWindow();
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
         });
 
         // JLabel First = new JLabel(String.format("\t%-10s\t%-15s\t%d", "1st", H2Database.GetRank(0), 123), 0);
@@ -219,6 +213,7 @@ public class RankList {
         // JLabel Tenth = new JLabel(String.format("\t%-9s\t%-15s\t%d", "10th", "Username", 123), 0);
         JPanel p = new JPanel();
         p.setBackground(Color.GRAY);
+        
         JLabel CurrentPlayer = new JLabel(String.format("\t%-9s\t%-15s\t%d", "YOU", "Username", 123), 0);
         p.add(CurrentPlayer);
         // JLabel CurrentPlayer = new JLabel(String.format("\t%-9s\t%-15s\t%d", "YOU",
@@ -246,7 +241,6 @@ public class RankList {
         // Ranks.add(Eighth);
         // Ranks.add(Ninth);
         // Ranks.add(Tenth);
-        Ranks.setBackground(Color.GRAY);
 
         JButton Back = new JButton("Back");
         Back.setFont(new Font("Arial", Font.PLAIN, 40));
@@ -270,6 +264,7 @@ public class RankList {
         frame.add(CurrentPlayer);
         Back.setBounds(0, 780, 1920, 100);
         frame.add(Back);
+        frame.add(Ranks);
 
         Back.addActionListener((E) -> {
             try {
